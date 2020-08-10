@@ -18,6 +18,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>({
     appBar: {
@@ -118,7 +119,6 @@ useEffect(() => {
 // empty dependency array means this effect will only run once (like componentDidMount in classes)
 }, []);
 
- const busno = data.busNo
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -147,14 +147,16 @@ useEffect(() => {
              .then(res => console.log(res.data));
     }
 
+    let history = useHistory();
+    const handleDelete = (_id) => {
+        console.log(_id)
+        axios.post('http://localhost:4000/api/bus/delete', _id)  
+             .then(res => console.log(res.data));
+        console.log("item deleted");
+        history.push("/viewBuses");
+    }
 
 
-
-    // onChangeBusRoute(e) {
-    //     this.setState({
-    //         busRoute:e.target.value
-    //     });
-    // }
 
     console.log(props.match.params.id)
 
@@ -226,10 +228,11 @@ useEffect(() => {
                             </CardActionArea>
                             <CardActions>
                                 <div>
-                                    <Button  variant="outlined" 
+                                    <Button 
+                                        variant="outlined" 
                                         onClick={handleClickOpen}>
-                                        Update Details
-                                    </Button> 
+                                        {'Update Details'}
+                                    </Button>
 
                                     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                                         <form 
@@ -296,8 +299,11 @@ useEffect(() => {
                                 </div>
                                 <Button className={clsx(classes.button)} 
                     
-                                    variant="contained" href="/viewBuses">
+                                    variant="contained"
+                                    onClick = {()=>handleDelete(data._id)}
+                                    >
                                     {'Delete Details'}
+                                    
                                 </Button>
                             </CardActions>
                         </Card>
