@@ -80,7 +80,7 @@ export default function DatePic() {
             </MuiPickersUtilsProvider>
             <Button className={clsx(classes.button)}
               type="submit"
-              variant="contained"
+              variant="contained" href="/createreport"
             >
 
               {'Report Generate'}

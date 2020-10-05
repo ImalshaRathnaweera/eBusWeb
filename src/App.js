@@ -39,9 +39,7 @@ import test from './Component/SignUp/test';
 //Report Generation
 
 import DatePic from './Component/ReportGeneration/DatePeriod';
-import SummaryReport from './Component/ReportGeneration/SummaryReport';
-
-
+import CreateReport from './Component/ReportGeneration/CreateReport';
   
 class App extends Component { 
     render() {  
@@ -82,7 +80,7 @@ class App extends Component {
 
                       {/* Report Generation */}
                       <Route exact path = "/reportgeneration"  component ={DatePic}/>
-                      <Route exact path = "/summaryreport" component = {SummaryReport}/>
+                      <Route exact path = "/createreport" component = {CreateReport}/>
                   </Switch>
               </Router>
           
