@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -12,9 +12,21 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ResponsiveDrawer from './../sidebar/siebardup';
-import SimpleTable from './../Layouts/SimpleTable'
 
+import axios from 'axios';
 import { Link } from "react-router-dom";
+
+// const Bus = props => (
+//   <tr>
+//       <td>{props.bus.busNo}</td>
+//       <td>{props.bus.busRoute}</td>
+//       <td>{props.bus.busCapacity}</td>
+//       <td>
+//           <Link to={"/edit/"+props.bus._id}>View</Link>
+//       </td>
+//   </tr>
+// )
+
 
 
 
@@ -41,7 +53,7 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-  createData('1', 455 , 6.0, 24, 4.0),
+  createData('1', 455, 6.0, 24, 4.0),
   createData('2', 237, 9.0, 37, 4.3),
   createData('3', 262, 16.0, 24, 6.0),
   createData('4', 305, 3.7, 67, 4.3),
@@ -56,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
   root: {
     flexGrow: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#cfd8dc',
     alignItems: 'top',
     // justifyContent: 'center',
     width: '99vw',
@@ -68,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid',
     lineHeight: 1.5,
     borderColor: '#0063cc',
-    paddingTop:'5%'
+    paddingTop: '5%'
     // This determines distance from top
 
   },
@@ -106,109 +118,72 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ViewBuses() {
   const classes = useStyles();
-  
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        'http://localhost:4000/api/bus',
+      );
+
+      setData(result.data);
+    };
+
+    fetchData();
+  }, []);
+
+  let counter = 1
   return (
     <Grid container className={classes.root}>
       <ResponsiveDrawer />
       <Grid item xs={12} sm={10} >
 
 
-
-
-        <form className={classes.form}>
-
-
-          <Typography component="h2" variant="" className={classes.welcome}>
-            Conductors
+        <Typography component="h2" variant="" className={classes.welcome}>
+          Bus Details
             </Typography>
 
-               <Button variant="contained" color="primary" href="/busRegister">
-                  Add New Bus
+        <Button variant="contained" color="primary" href="/busRegister">
+          Add New Bus
               </Button>
-            
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Id</StyledTableCell>
-                  <StyledTableCell align="right">Bus No</StyledTableCell>
-                  <StyledTableCell align="right">Bus Route</StyledTableCell>
-                  <StyledTableCell align="right">BusCapacity</StyledTableCell>
-                  <StyledTableCell align="right">Action</StyledTableCell>
-                  
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {/* {rows.map((row) => ( */}
-                  <StyledTableRow>
-                    <StyledTableCell component="th" scope="row">
-                      1
-                    </StyledTableCell>
-                    <StyledTableCell align="right">GL1245</StyledTableCell>
-                    <StyledTableCell align="right">138 Kottawa Pitakotuwa</StyledTableCell>
-                    <StyledTableCell align="right">45</StyledTableCell>
-                    <StyledTableCell align="right"><Link to={'/viewsingleconductor'}>
-          <button>View</button>
-        </Link></StyledTableCell>
-                  </StyledTableRow>
 
-                  <StyledTableRow>
-                    <StyledTableCell component="th" scope="row">
-                      2
-                    </StyledTableCell>
-                    <StyledTableCell align="right">GL5211</StyledTableCell>
-                    <StyledTableCell align="right">138 Kottawa-Maharagama</StyledTableCell>
-                    <StyledTableCell align="right">45</StyledTableCell>
-                    <StyledTableCell align="right"><Link to={'/viewsingleconductor'}>
-          <button>View</button>
-        </Link></StyledTableCell>
-                  </StyledTableRow>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="center">Id</StyledTableCell>
+                <StyledTableCell align="center">Bus No</StyledTableCell>
+                <StyledTableCell align="center">Bus Route</StyledTableCell>
+                <StyledTableCell align="center">BusCapacity</StyledTableCell>
+                <StyledTableCell align="center">Action</StyledTableCell>
 
-                  <StyledTableRow>
-                    <StyledTableCell component="th" scope="row">
-                      3
-                    </StyledTableCell>
-                    <StyledTableCell align="right">KA5417</StyledTableCell>
-                    <StyledTableCell align="right">154 Kiribathgoda - Angulana</StyledTableCell>
-                    <StyledTableCell align="right">40</StyledTableCell>
-                    <StyledTableCell align="right"><Link to={'/viewsingleconductor'}>
-          <button>View</button>
-        </Link></StyledTableCell>
-                  </StyledTableRow>
+              </TableRow>
+            </TableHead>
+            <TableBody>
 
-                  <StyledTableRow>
-                    <StyledTableCell component="th" scope="row">
-                      4
-                    </StyledTableCell>
-                    <StyledTableCell align="right">GL2132</StyledTableCell>
-                    <StyledTableCell align="right">113 Fort - Nugegoda</StyledTableCell>
-                    <StyledTableCell align="right">50</StyledTableCell>
-                    <StyledTableCell align="right"><Link to={'/viewsingleconductor'}>
-          <button>View</button>
-        </Link></StyledTableCell>
-                  </StyledTableRow>
+              {data.map(item => (
+                <StyledTableRow key={item._id}>
+                  <StyledTableCell align="center" >{counter++}</StyledTableCell>
+                  <StyledTableCell align="center" >{item.busNo}</StyledTableCell>
+                  <StyledTableCell align="center">{item.busRoute}</StyledTableCell>
+                  <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
+                  {/* <StyledTableCell align="right">{item.busRoute}</StyledTableCell> */}
+                  <StyledTableCell align="center">
+                    <Link to={`/busProfile/${item._id}`}>
+                      <button>View</button>
+                    </Link>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
 
-                  <StyledTableRow>
-                    <StyledTableCell component="th" scope="row">
-                      5
-                    </StyledTableCell>
-                    <StyledTableCell align="right">NB 4512</StyledTableCell>
-                    <StyledTableCell align="right">113 Fort - Nugegoda</StyledTableCell>
-                    <StyledTableCell align="right">50</StyledTableCell>
-                    <StyledTableCell align="right"><Link to={'/viewsingleconductor'}>
-          <button>View</button>
-        </Link></StyledTableCell>
-                  </StyledTableRow>
-                {/* // ))} */}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <div>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <div>
 
-          </div>
-          <br></br>
-        </form>
+        </div>
+        <br></br>
+
 
       </Grid>
     </Grid>

@@ -143,7 +143,7 @@ function ResponsiveDrawer(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem button className={classes.nested}>
-              <Link href="/" variant="body2" underline="none">
+              <Link href="/reportgeneration" variant="body2" underline="none">
               <ListItem button>
                 <ListItemText primary="Generate Report" />
               </ListItem>
