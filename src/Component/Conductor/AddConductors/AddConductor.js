@@ -11,7 +11,7 @@ import ResponsiveDrawer from './../../sidebar/siebardup'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#cfd8dc',
+    backgroundColor: '#d7a8df',
     alignItems: 'center',
     justifyContent: 'center',
     width: '99vw',
@@ -103,6 +103,7 @@ export default function AddConductor() {
               label="User Name"
               name="username"
               autoComplete="User Name"
+              autoFocus
             />
 
             <TextField
@@ -113,19 +114,8 @@ export default function AddConductor() {
               label="Email"
               name="email"
               autoComplete="email"
-              autoFocus
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="address"
-              label="Address"
-              name="address"
-              autoComplete="address"
 
-            />
 
             <TextField
               variant="outlined"
@@ -139,7 +129,7 @@ export default function AddConductor() {
 
             />
 
-<TextField
+            <TextField
               variant="outlined"
               margin="normal"
               required
@@ -149,7 +139,17 @@ export default function AddConductor() {
               name="conductorno"
               autoComplete="conductorno"
             />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="address"
+              label="Address"
+              name="address"
+              autoComplete="address"
 
+            />
             <TextField
               variant="outlined"
               margin="normal"

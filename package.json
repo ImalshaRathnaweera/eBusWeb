@@ -19,7 +19,7 @@
     "react-crud-table": "0.0.8",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.0.1",
-    "react-router-dom": "^5.2.0",
+    "react-9-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {

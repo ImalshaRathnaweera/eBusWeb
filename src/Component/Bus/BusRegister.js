@@ -11,7 +11,7 @@ import ResponsiveDrawer from './../sidebar/siebardup'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#d7a8df',
     // backgroundColor: '#a503fc',
     alignItems: 'center',
     justifyContent: 'center',

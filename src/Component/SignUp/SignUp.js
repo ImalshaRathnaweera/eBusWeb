@@ -136,7 +136,7 @@ export default function SignIn() {
               label="Email"
               name="email"
               autoComplete="email"
-              autoFocus
+           
             />
             <TextField
               variant="outlined"
