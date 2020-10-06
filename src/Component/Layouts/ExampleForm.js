@@ -5,13 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ResponsiveDrawer from './../sidebar/siebardup'
-import { Link } from "react-router-dom";
 
 // sending requests
 import axios from 'axios';
 
 
-export default class BusRegister extends React.Component {
+export default class ExampleForm extends React.Component {
 
     constructor(props) {
         super(props);
@@ -164,7 +163,6 @@ export default class BusRegister extends React.Component {
                                 type="submit"
                                 variant="contained">
                                 {'Register'}
-                                <Link to="/viewBuses"></Link>
                             </Button>
                         </div>
                         <br></br>               

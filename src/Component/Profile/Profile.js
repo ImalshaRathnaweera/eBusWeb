@@ -3,7 +3,7 @@ import { Button, Grid, Paper, TextField, Typography, Avatar, Icon } from '@mater
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Success from '../Notification/Success';
-import  '../../Css/Profile.scss';
+import '../../Css/Profile.scss';
 
 class Profile extends Component {
     constructor(props) {
@@ -52,10 +52,10 @@ class Profile extends Component {
         if (this.state.display) {
             content = <Paper className="paper" >
                 <form >
-                    <Typography className= "topic1">
+                    <Typography className="topic1">
                         Update Profile Details
                     </Typography>
-                    <TextField 
+                    <TextField
                         variant="outlined"
                         margin="normal"
                         required
@@ -84,14 +84,14 @@ class Profile extends Component {
                         name="contactNo"
 
                     />
-                    
-                    <Button  className = "btn" 
+
+                    <Button className="btn"
                         onClick={this.onSubmit}
                         variant="contained" >Save</Button>
-                    
+
                 </form>
             </Paper>
-           
+
         }
         return (
             <div>
@@ -103,7 +103,7 @@ class Profile extends Component {
                         status={this.state.snackbaropen}
                         closeAlert={this.closeAlert}
                     />
-                    <AppBar position="static" className ="app-bar">
+                    <AppBar position="static" className="app-bar">
                         <Toolbar>
                             <Typography className="title">
                                 eBus| User Profile
@@ -118,7 +118,7 @@ class Profile extends Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                             }}>
-                                <Avatar src={profileIma} className = "image">
+                                <Avatar src={profileIma} className="image">
                                 </Avatar>
                                 <input type="file" id="input" accept="image/*" onChange={this.imageHandler}
                                     style={{
@@ -138,19 +138,19 @@ class Profile extends Component {
                             </Grid>
                             <form  >
                                 <Typography style={{ textAlign: 'center', fontSize: '20px' }}>
-                                <div>
-                                    <p><b>Name:</b>&nbsp; John Steewan</p>
-                                    <p><b>Email:</b>&nbsp; johnsteewan1984@gmail.com</p>
-                                    <p><b>Address:</b>&nbsp;No.10 ,Reid Avenue, Colombo 07</p>
-                                    <p><b>Contact:</b>&nbsp;0776789632</p>
-                                </div>
+                                    <div>
+                                        <p><b>Name:</b>&nbsp; John Steewan</p>
+                                        <p><b>Email:</b>&nbsp; johnsteewan1984@gmail.com</p>
+                                        <p><b>Address:</b>&nbsp;No.10 ,Reid Avenue, Colombo 07</p>
+                                        <p><b>Contact:</b>&nbsp;0776789632</p>
+                                    </div>
                                 </Typography>
                                 <Grid style={{
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center"
                                 }}>
-                                    <Button className = "btn"
+                                    <Button className="btn"
                                         type="submit"
                                         variant="contained"
                                         onClick={this.toggleHandler}>Update</Button>
@@ -160,7 +160,7 @@ class Profile extends Component {
                         {content}
                     </Grid>
                     <Grid item item xs={12} sm={6}>
-                        <Paper className = "paper">
+                        <Paper className="paper">
                             <form>
                                 <Typography className="topic2">
                                     Change Your Password
@@ -195,10 +195,10 @@ class Profile extends Component {
                                     label="Confirm Password"
                                     name="confirmpassword"
                                 />
-                                
-                                    <Button className = "btn"
-                                        type="submit"
-                                        variant="contained">Password Change</Button>
+
+                                <Button className="btn"
+                                    type="submit"
+                                    variant="contained">Password Change</Button>
                             </form>
                         </Paper>
                     </Grid>
