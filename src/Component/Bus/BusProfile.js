@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) =>({
         fontSize: "4rem",
     },
     exampleContainer: {
-        paddingTop: theme.spacing(5),
+        paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(10)
     },
     dashBody: {
@@ -171,8 +171,8 @@ useEffect(() => {
                     </Typography> 
                 </Box> */}
             </Box>
-            <Container maxWidth="md" className={classes.exampleContainer}>
-                <Grid container spacing={5}>
+            <Container maxWidth="lg" className={classes.exampleContainer}>
+                <Grid container spacing={3}>
                     <Grid item xs={8}>
                         <Card className={classes.card}>
                             <CardActionArea>

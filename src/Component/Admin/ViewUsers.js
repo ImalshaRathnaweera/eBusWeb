@@ -13,6 +13,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ResponsiveDrawer from './../sidebar/siebardup';
 
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
@@ -89,11 +92,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
 
-  margin: {
-    margin: theme.spacing(2),
-    marginRight: theme.spacing(1)
-  },
-  
+
   card: {
     maxWidth: '180px',
     backgroundColor: 'transparent',
@@ -102,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function ViewBuses() {
+export default function ViewUsers() {
   const classes = useStyles();
   const [data, setData] = useState([]);
 
@@ -126,21 +125,21 @@ export default function ViewBuses() {
 
 
         <Typography component="h2" variant="" className={classes.welcome}>
-          Bus Details
+          User Details
             </Typography>
 
-        <Button variant="contained" color="primary" href="/busRegister" className={classes.margin}>
-          Add New Bus
-              </Button>
-        
+        <br></br>
+
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center">Id</StyledTableCell>
-                <StyledTableCell align="center">Bus No</StyledTableCell>
-                <StyledTableCell align="center">Bus Route</StyledTableCell>
-                <StyledTableCell align="center">BusCapacity</StyledTableCell>
+                <StyledTableCell align="center">Name</StyledTableCell>
+                <StyledTableCell align="center">Email</StyledTableCell>
+                <StyledTableCell align="center">Address</StyledTableCell>
+                <StyledTableCell align="center">NIC</StyledTableCell>
+                <StyledTableCell align="center">Contact</StyledTableCell>
                 <StyledTableCell align="center">Action</StyledTableCell>
 
               </TableRow>
@@ -153,10 +152,17 @@ export default function ViewBuses() {
                   <StyledTableCell align="center" >{item.busNo}</StyledTableCell>
                   <StyledTableCell align="center">{item.busRoute}</StyledTableCell>
                   <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
-                  {/* <StyledTableCell align="right">{item.busRoute}</StyledTableCell> */}
+                  <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
+                  <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
                   <StyledTableCell align="center">
                     <Link to={`/busProfile/${item._id}`}>
                       <button>View</button>
+                    </Link>
+                    <Link to={`/busProfile/${item._id}`}>
+                      {/* <button>Delete</button> */}
+                      <IconButton aria-label="delete">
+                        <DeleteIcon />
+                      </IconButton>
                     </Link>
                   </StyledTableCell>
                 </StyledTableRow>
