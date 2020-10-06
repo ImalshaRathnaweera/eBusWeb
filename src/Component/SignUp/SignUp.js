@@ -13,11 +13,11 @@ import G3 from  "../images/G3.png";
 import axios from 'axios';
 
 
-class SignIn extends React.Component{
+class SignUp extends React.Component{
   constructor(props){
     super(props);
         
-
+    console.log("Check")
       this.state={
         name :"",
         email :"",
@@ -27,14 +27,14 @@ class SignIn extends React.Component{
         password:"",  
         confirmpassword: "",
   }
-  this.namehandler = this.namehandler.bind(this);
+        this.namehandler = this.namehandler.bind(this);
         this.emailhandler = this.emailhandler.bind(this);
         this.addresshandler = this.addresshandler.bind(this);
         this.nichandler = this.nichandler.bind(this);
         this.contacthandler = this.contacthandler.bind(this);
         this.passwordhandler = this.passwordhandler.bind(this);
         this.confirmpasswordhandler = this.confirmpasswordhandler.bind(this);
-  this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
 }
     namehandler =(event)=>{
       this.setState({
@@ -80,7 +80,9 @@ class SignIn extends React.Component{
     }
 
     handleSubmit =(event) =>{
+      alert(`${this.state.address} ${this.state.contact}Success`)
       this.props.history.push('/dashboard');
+      console.log("${this.state.email}");
       event.preventDefault()
     }
 
@@ -112,7 +114,7 @@ class SignIn extends React.Component{
               height:'150px',
               width:'200px',
               position:'fixed',
-            
+  
 
             }}>
             </Card>
@@ -215,7 +217,7 @@ class SignIn extends React.Component{
               fullWidth
               name="confirmpassword"
               label="Confirm Password"
-              type="confirmpassword"
+              type="password"
               id="confirmpassword"
               value={this.state.confirmpassword}
               onChange ={this.confirmpasswordhandler}
@@ -254,4 +256,4 @@ class SignIn extends React.Component{
   );
 }
 }
-export default SignIn;
+export default SignUp;

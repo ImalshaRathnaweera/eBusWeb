@@ -9,7 +9,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-//import G3 from  "../images/G3.png";
 import axios from 'axios';
 import ResponsiveDrawer from './../../sidebar/siebardup'
 
@@ -19,6 +18,7 @@ class AddConductor extends React.Component{
       this.state={
         name :"",
         email :"",
+        address: "",
         password:"",    
   }
   this.handleSubmit = this.handleSubmit.bind(this)
@@ -53,22 +53,29 @@ class AddConductor extends React.Component{
       })
       console.log(event.target.value)
     }
-    passwordhandler =(event) =>{
+    conductornumberhandler =(event) =>{
       this.setState({
-        password:event.target.value
-      })
-      console.log(event.target.value)
-    }
-    confirmpasswordhandler =(event) =>{
-      this.setState({
-        confirmpassword:event.target.value
+        conductornumber:event.target.value
       })
       console.log(event.target.value)
     }
 
     handleSubmit =(event) =>{
       alert(`${this.state.email} ${this.state.password} Success`)
-      this.props.history.push('/dashboard');
+      const newConductor = {
+        name: this.state.name,
+        email: this.state.email,
+        nic: this.state.nic,
+        conductorNumber: this.state.conductornumber,
+        address: this.state.address,
+        contact: this.state.contact,
+    }
+
+      // axios.post('http://localhost:3000/api/conductor/register', newConductor)
+      //    .then(res => console.log(res.data));
+      
+
+      this.props.history.push('/viewconductor');
       event.preventDefault()
     }
 
@@ -103,9 +110,7 @@ class AddConductor extends React.Component{
             <Paper style={{
                 padding: '20px 20px',
                 margin: 50,
-                textAlign: 'center',
-                
-                
+                textAlign: 'center',              
             }}>
               
             <form onSubmit ={this.handleSubmit}>
@@ -113,7 +118,7 @@ class AddConductor extends React.Component{
               Conductor Registation
             </Typography>
 
-                <TextField
+            <TextField
               variant="outlined"
               margin="normal"
               required
@@ -138,19 +143,8 @@ class AddConductor extends React.Component{
               value={this.state.email}
               onChange ={this.emailhandler}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="address"
-              label="Address"
-              name="address"
-              autoComplete="address"
-              value={this.state.address}
-              onChange ={this.addresshandler}
-            />
 
+            
             <TextField
               variant="outlined"
               margin="normal"
@@ -169,40 +163,37 @@ class AddConductor extends React.Component{
               margin="normal"
               required
               fullWidth
+              name="conductornumber"
+              label="conductor Number"
+              id="conductornumber"
+              value={this.state.conductornumber}
+              onChange ={this.conductornumberhandler}
+            />    
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="address"
+              label="Address"
+              name="address"
+              autoComplete="address"
+              value={this.state.address}
+              onChange ={this.addresshandler}
+            />
+               
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
               id="contact"
               label="Contact Number"
               name="contact"
               autoComplete="contact"
               value={this.state.contact}
               onChange ={this.contacthandler}
-            />
-
-
-
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={this.state.password}
-              onChange ={this.passwordhandler}
-            />
-
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="confirmpassword"
-              label="Confirm Password"
-              type="confirmpassword"
-              id="confirmpassword"
-              value={this.state.confirmpassword}
-              onChange ={this.confirmpasswordhandler}
             />
 
                 <Grid item>

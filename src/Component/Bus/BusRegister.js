@@ -68,15 +68,7 @@ export default class BusRegister extends React.Component {
             busCapacity: this.state.busCapacity
         }
 
-        // const data = {
-        //     busNo: "GL2322",
-        //     busRoute: "MAharagama-Galle",
-        //     busCapacity: 45
-        // }
-
-        // console.log(data)
-
-        axios.post('http://localhost:4000/api/bus/register', newBus)
+        axios.post('http://localhost:3000/api/bus/register', newBus)
              .then(res => console.log(res.data));
 
         this.setState({
