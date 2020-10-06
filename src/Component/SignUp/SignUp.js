@@ -13,13 +13,27 @@ import G3 from  "../images/G3.png";
 import axios from 'axios';
 
 
-class SignIn extends Component{
+class SignIn extends React.Component{
   constructor(props){
     super(props);
+        
+
       this.state={
+        name :"",
         email :"",
-        password:"",    
+        address :"",
+        nic: "",
+        contact: "",
+        password:"",  
+        confirmpassword: "",
   }
+  this.namehandler = this.namehandler.bind(this);
+        this.emailhandler = this.emailhandler.bind(this);
+        this.addresshandler = this.addresshandler.bind(this);
+        this.nichandler = this.nichandler.bind(this);
+        this.contacthandler = this.contacthandler.bind(this);
+        this.passwordhandler = this.passwordhandler.bind(this);
+        this.confirmpasswordhandler = this.confirmpasswordhandler.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this)
 }
     namehandler =(event)=>{
@@ -66,8 +80,6 @@ class SignIn extends Component{
     }
 
     handleSubmit =(event) =>{
-      console.log("test")
-      alert(`${this.state.email} ${this.state.password} Success`)
       this.props.history.push('/dashboard');
       event.preventDefault()
     }
