@@ -83,7 +83,6 @@ class App extends Component {
                       <Route exact path="/formDialog" component={FormDialog}/>
                       <Route exact path="/checkView" component={CheckingView}/>        
                       <Route exact path="/exampleform" component={ExampleForm}/>
-                      {/* <Route exact path="/exampleView" component={ExampleView}/> */}
 
                       <Route exact path="/viewsingleconductor" component={ViewSingleConductor}/>
                       <Route exact path="/test" component={test}/>
