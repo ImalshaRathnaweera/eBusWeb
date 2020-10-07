@@ -10,7 +10,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import G3 from  "../images/G3.png";
+<<<<<<< HEAD
 
+=======
+import { useHistory } from 'react-router-dom';
+// import axios from "axios";
+>>>>>>> a39217b09d77ec6b5096bc0179fa75bf1fb4512f
 
 class SignIn extends Component{
   constructor(props){
@@ -32,6 +37,7 @@ class SignIn extends Component{
       })
     }
 
+<<<<<<< HEAD
     handleSubmit =(event) =>{
       alert(`${this.state.email} ${this.state.password} Success`)
       this.props.history.push('/dashboard');
@@ -41,7 +47,51 @@ class SignIn extends Component{
       //   password:"",
       // })
       event.preventDefault()
+=======
+    // handleSubmit () {
+
+    //   const data= {
+    //     email:this.state.email,
+    //     password:this.state.password
+    //   }
+
+    //   // alert(`${this.state.email} ${this.state.password} Success`)
+    //   axios.post('http://localhost:3000/api/auth/',data)
+    //   .then(res => {
+    //      console.log(res);
+    //     //localStorage.setItem('auth',JSON.stringify(res.data))
+    //     // this.props.history.push('/dashboard');
+    //   })
+    //   .catch(err => {
+    //     console.log(err.message);
+    //     console.log(err.status);
+    //   })
+    // }
+
+    handleSubmit(){
+      console.log("Email :",this.state.email);
+      console.log("Password: ",this.state.password);
+      // var history = useHistory()
+      const url = 'http://localhost:3000/api/auth/'
+      const requestOption = {
+        method:'POST',
+        headers:{ 'Content-Type': 'application/x-www-form-urlencoded' },
+        body:`email=${this.state.email}&password=${this.state.password}`
+      }
+      fetch(url,requestOption)
+      .then(res=>res.json())
+      .then(res=>{
+        console.log(res);
+        // setUserToken(res); //////
+        // this.props.history.push('/dashboard');
+        // history.push('/dashboard');
+        
+      })
+      .catch(err=>console.log(err))
+>>>>>>> a39217b09d77ec6b5096bc0179fa75bf1fb4512f
     }
+
+
 
 
   render(){
@@ -91,7 +141,7 @@ class SignIn extends Component{
                 
             }}>
               
-            <form onSubmit ={this.handleSubmit}>
+            <form>
            
                 <Typography variant={'h5'}>
                 <h3> Sign In </h3>
@@ -131,7 +181,7 @@ class SignIn extends Component{
                 />
                 </Grid>
                 {/* <Link href="/sidebardup" variant="body2" underline="none"> */}
-                <Button style={{
+                <Button onClick={this.handleSubmit} style={{
                   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
                   borderRadius: 8,
                   border: 0,
@@ -143,7 +193,8 @@ class SignIn extends Component{
                   marginBottom:'10px',
                 }} 
                 type="submit"
-                variant="contained">
+                // variant="contained"
+                >
                  {'Sign In'}
                </Button>
                {/* </Link> */}

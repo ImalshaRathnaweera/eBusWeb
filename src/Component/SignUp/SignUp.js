@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+<<<<<<< HEAD
 
 import G3 from  "../images/G3.png";
 import axios from 'axios';
@@ -257,6 +258,8 @@ class Signup extends React.Component{
 }
 export default Signup;
 
+=======
+>>>>>>> a39217b09d77ec6b5096bc0179fa75bf1fb4512f
 import G3 from "../images/G3.png";
 import axios from 'axios';
 
@@ -338,13 +341,14 @@ class SignUp extends React.Component {
     // alert(`${this.state.email} ${this.state.password} Success`)
     axios.post('http://localhost:3000/api/user/registerWeb', data)
     .then(res => {
-      console.log(res);
+      // console.log(res);
+      this.props.history.push('/dashboard');
     })
     .catch(err => {
       console.log(err.message);
       console.log(err.status);
     })
-      this.props.history.push('/dashboard');
+      // this.props.history.push('/dashboard');
     // event.preventDefault()
   }
 
@@ -518,4 +522,9 @@ class SignUp extends React.Component {
     );
   }
 }
+<<<<<<< HEAD
 export default SignUp;
+=======
+export default SignUp;
+
+>>>>>>> a39217b09d77ec6b5096bc0179fa75bf1fb4512f
