@@ -91,13 +91,14 @@ class SignUp extends React.Component {
     // alert(`${this.state.email} ${this.state.password} Success`)
     axios.post('http://localhost:3000/api/user/registerWeb', data)
     .then(res => {
-      console.log(res);
+      // console.log(res);
+      this.props.history.push('/dashboard');
     })
     .catch(err => {
       console.log(err.message);
       console.log(err.status);
     })
-      this.props.history.push('/dashboard');
+      // this.props.history.push('/dashboard');
     // event.preventDefault()
   }
 
