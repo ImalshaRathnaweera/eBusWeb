@@ -9,10 +9,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-<<<<<<< HEAD
-=======
-//import G3 from  "../images/G3.png";
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
 import axios from 'axios';
 import ResponsiveDrawer from './../../sidebar/siebardup'
 
@@ -22,10 +18,7 @@ class AddConductor extends React.Component{
       this.state={
         name :"",
         email :"",
-<<<<<<< HEAD
         address: "",
-=======
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
         password:"",    
   }
   this.handleSubmit = this.handleSubmit.bind(this)
@@ -60,11 +53,6 @@ class AddConductor extends React.Component{
       })
       console.log(event.target.value)
     }
-<<<<<<< HEAD
-    conductornumberhandler =(event) =>{
-      this.setState({
-        conductornumber:event.target.value
-=======
     passwordhandler =(event) =>{
       this.setState({
         password:event.target.value
@@ -74,14 +62,12 @@ class AddConductor extends React.Component{
     confirmpasswordhandler =(event) =>{
       this.setState({
         confirmpassword:event.target.value
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
       })
       console.log(event.target.value)
     }
 
     handleSubmit =(event) =>{
       alert(`${this.state.email} ${this.state.password} Success`)
-<<<<<<< HEAD
       const newConductor = {
         name: this.state.name,
         email: this.state.email,
@@ -96,9 +82,7 @@ class AddConductor extends React.Component{
          .then(res => console.log(res.data));
 
       this.props.history.push('/viewconductor');
-=======
       this.props.history.push('/dashboard');
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
       event.preventDefault()
     }
 
@@ -133,13 +117,7 @@ class AddConductor extends React.Component{
             <Paper style={{
                 padding: '20px 20px',
                 margin: 50,
-<<<<<<< HEAD
                 textAlign: 'center',              
-=======
-                textAlign: 'center',
-                
-                
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
             }}>
               
             <form onSubmit ={this.handleSubmit}>
@@ -147,11 +125,7 @@ class AddConductor extends React.Component{
               Conductor Registation
             </Typography>
 
-<<<<<<< HEAD
             <TextField
-=======
-                <TextField
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
               variant="outlined"
               margin="normal"
               required
@@ -175,8 +149,6 @@ class AddConductor extends React.Component{
               autoComplete="email"
               value={this.state.email}
               onChange ={this.emailhandler}
-<<<<<<< HEAD
-=======
             />
             <TextField
               variant="outlined"
@@ -189,7 +161,6 @@ class AddConductor extends React.Component{
               autoComplete="address"
               value={this.state.address}
               onChange ={this.addresshandler}
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
             />
 
             
@@ -205,7 +176,6 @@ class AddConductor extends React.Component{
               value={this.state.nic}
               onChange ={this.nichandler}
             />
-<<<<<<< HEAD
 
             <TextField
               variant="outlined"
@@ -218,15 +188,12 @@ class AddConductor extends React.Component{
               value={this.state.conductornumber}
               onChange ={this.conductornumberhandler}
             />    
-=======
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
 
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-<<<<<<< HEAD
               id="address"
               label="Address"
               name="address"
@@ -235,31 +202,11 @@ class AddConductor extends React.Component{
               onChange ={this.addresshandler}
             />
                
-=======
-              id="contact"
-              label="Contact Number"
-              name="contact"
-              autoComplete="contact"
-              value={this.state.contact}
-              onChange ={this.contacthandler}
-            />
-
-
-
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-<<<<<<< HEAD
-              id="contact"
-              label="Contact Number"
-              name="contact"
-              autoComplete="contact"
-              value={this.state.contact}
-              onChange ={this.contacthandler}
-=======
               name="password"
               label="Password"
               type="password"
@@ -279,7 +226,6 @@ class AddConductor extends React.Component{
               id="confirmpassword"
               value={this.state.confirmpassword}
               onChange ={this.confirmpasswordhandler}
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
             />
 
                 <Grid item>
