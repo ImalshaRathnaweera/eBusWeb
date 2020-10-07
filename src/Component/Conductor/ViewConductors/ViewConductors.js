@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -13,17 +13,23 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ResponsiveDrawer from './../../sidebar/siebardup';
 
-// import ResponsiveDrawer from './../../sidebar/siebardup'
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-
-//import ResponsiveDrawer from './../../sidebar/siebardup';
-
-
+import axios from 'axios';
 import { Link } from "react-router-dom";
 
+// const Bus = props => (
+//   <tr>
+//       <td>{props.bus.busNo}</td>
+//       <td>{props.bus.busRoute}</td>
+//       <td>{props.bus.busCapacity}</td>
+//       <td>
+//           <Link to={"/edit/"+props.bus._id}>View</Link>
+//       </td>
+//   </tr>
+// )
 
-// import { Link } from "react-router-dom";
+
+
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -42,17 +48,16 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, email, address, nic, conductorno,contactno,busno) {
-  return { name, email, address, nic, conductorno,contactno,busno };
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
 }
 
 const rows = [
-  createData('Niamal Samantha', 'nimal@gmail.com', 'No.22,Poddala,Galle', '667894138V', '789456123','0711237895','Nc-6688'),
-  createData('Kaveesha Kalhara', 'kaveesha@gmail.com', 'Kaveesha,Cross Street,Karapitiya', '789456123V', '667894138','0778945648','FH-4456'),
-  createData('Nuwan Dhanushka', '-', 'No.6,Cinnamon Gardens,Colombo 7', '967845122V', '874569254','0754786324','PO-7755'),
-  createData('Dumindu Chamal', 'dumindu@gmail.com', '63/5,baddegama,Galle', '874596123V', '54689256','0761421421','UY-2256'),
-  createData('Shakthi Sachintha', 'shakthi@gmail.com', 'No.6,Sunside Gardens,Colombo 6', '874569254V', '789236489','0774567891','FG-5687'),
-  createData('Udara Deshan', '-', 'No.55,Ambalangoda,Galle', '801457896V', '789456123','0714545457','SD-4496')
+  createData('1', 455, 6.0, 24, 4.0),
+  createData('2', 237, 9.0, 37, 4.3),
+  createData('3', 262, 16.0, 24, 6.0),
+  createData('4', 305, 3.7, 67, 4.3),
+  createData('5', 356, 16.0, 49, 3.9),
 ];
 
 
@@ -63,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
   root: {
     flexGrow: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#cfd8dc',
     alignItems: 'top',
     // justifyContent: 'center',
     width: '99vw',
@@ -75,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid',
     lineHeight: 1.5,
     borderColor: '#0063cc',
-    paddingTop:'5%'
+    paddingTop: '5%'
     // This determines distance from top
 
   },
@@ -95,6 +100,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10
 
   },
+
+
   card: {
     maxWidth: '180px',
     backgroundColor: 'transparent',
@@ -106,69 +113,83 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: 10,
     paddingTop: '1%'
-  },
-  
+  }
 }));
 
 export default function ViewConductor() {
   const classes = useStyles();
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        'http://localhost:3000/api/conductor',
+      );
+
+      setData(result.data);
+    };
+
+    fetchData();
+  }, []);
+
+  let counter = 1
   return (
     <Grid container className={classes.root}>
       <ResponsiveDrawer />
       <Grid item xs={12} sm={10} >
 
 
-
-
-        <form className={classes.form}>
-          <Typography component="h2" variant="" className={classes.welcome}>
-            Conductors
+        <Typography component="h2" variant="" className={classes.welcome}>
+          Conductor Details
             </Typography>
 
-               <Button variant="contained" color="primary" href="/addconductor">
-                  Add New Conductor
+        <Button variant="contained" color="primary" href="/addconductor">
+          Add New Conductor
               </Button>
-            
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Name</StyledTableCell>
+
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+              <StyledTableCell align="right">ID</StyledTableCell>
+                  <StyledTableCell align="right">Name</StyledTableCell>
                   <StyledTableCell align="right">Email</StyledTableCell>
-                  <StyledTableCell align="right">Address</StyledTableCell>
                   <StyledTableCell align="right">NIC</StyledTableCell>
                   <StyledTableCell align="right">Conductor License No</StyledTableCell>
+                  <StyledTableCell align="right">Address</StyledTableCell>
                   <StyledTableCell align="right">Contact No</StyledTableCell>
-                  <StyledTableCell align="right">Bus No</StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <StyledTableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{row.email}</StyledTableCell>
-                    <StyledTableCell align="right">{row.address}</StyledTableCell>
-                    <StyledTableCell align="right">{row.nic}</StyledTableCell>
-                    <StyledTableCell align="right">{row.conductorno}</StyledTableCell>
-                    <StyledTableCell align="right">{row.contactno}</StyledTableCell>
-                    <StyledTableCell align="right">{row.busno}</StyledTableCell>
-                    <StyledTableCell align="right"><Link to={'/viewsingleconductor'}>
-          <button>View</button>
-        </Link></StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <div>
+                  <StyledTableCell align="right">Action</StyledTableCell>
 
-          </div>
-          <br></br>
-        </form>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+
+              {data.map(item => (
+                <StyledTableRow key={item._id}>
+                  <StyledTableCell align="center" >{counter++}</StyledTableCell>
+                  <StyledTableCell align="center" >{item.name}</StyledTableCell>
+                  <StyledTableCell align="center" >{item.email}</StyledTableCell>
+                  <StyledTableCell align="center">{item.nic}</StyledTableCell>
+                  <StyledTableCell align="center">{item.conductorNumber}</StyledTableCell>
+                  <StyledTableCell align="center">{item.address}</StyledTableCell>
+                  <StyledTableCell align="center">{item.contact}</StyledTableCell>
+                  {/* <StyledTableCell align="right">{item.busRoute}</StyledTableCell> */}
+                  <StyledTableCell align="center">
+                    <Link to={`/busProfile/${item._id}`}>
+                      <button>View</button>
+                    </Link>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <div>
+
+        </div>
+        <br></br>
+
 
       </Grid>
     </Grid>

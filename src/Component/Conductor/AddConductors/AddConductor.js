@@ -71,8 +71,8 @@ class AddConductor extends React.Component{
         contact: this.state.contact,
     }
 
-      // axios.post('http://localhost:3000/api/conductor/register', newConductor)
-      //    .then(res => console.log(res.data));
+      axios.post('http://localhost:3000/api/conductor/register', newConductor)
+         .then(res => console.log(res.data));
       
 
       this.props.history.push('/viewconductor');
@@ -212,16 +212,10 @@ class AddConductor extends React.Component{
                 }} 
                 type="submit"
                 variant="contained">
-                 {'Sign Up'}
+                 {'Register'}
                </Button>
                {/* </Link> */}
                 <br></br>
-                <Grid item >
-                   Do you have an account?
-                    <Link href="/signup" variant="body2">
-                     {"Sign In"}
-                    </Link>
-                </Grid>    
             </form>
          </Paper>
         </Grid>

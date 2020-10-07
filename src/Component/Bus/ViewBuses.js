@@ -123,7 +123,7 @@ export default function ViewBuses() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'http://localhost:4000/api/bus',
+        'http://localhost:3000/api/bus',
       );
 
       setData(result.data);
