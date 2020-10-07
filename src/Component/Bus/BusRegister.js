@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ResponsiveDrawer from './../sidebar/siebardup'
 import { Link } from "react-router-dom";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 // sending requests
 import axios from 'axios';
@@ -21,13 +23,14 @@ export default class BusRegister extends React.Component {
         this.onChangeBusRoute = this.onChangeBusRoute.bind(this);
         this.onChangeBusCapacity = this.onChangeBusCapacity.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        // this.onChange = this.onChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
          // Setting up state
         this.state= {
             busNo: "",
             busRoute: "",
             busCapacity: "",
+            
         }
     }
 
@@ -47,12 +50,13 @@ export default class BusRegister extends React.Component {
             busCapacity:e.target.value
         });
     }
+    
+    //
+    handleChange(event) {
+        const { name, value, type, checked } = event.target
 
-    // onChange(event) {
-    //     const { name, value, type, checked } = event.target
-
-    //     type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
-    // }
+        type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
+    }
 
     onSubmit(e) {
         e.preventDefault();
@@ -151,6 +155,20 @@ export default class BusRegister extends React.Component {
                             <input type="submit" value="Register Bus" className="btn btn-primary"></input>
                         
                         </div> */}
+                        <Grid style={{textAlign:'left'}}>
+                            <FormControlLabel
+                                control={
+                                <Switch
+                                    //checked={this.state.checkedB}
+                                    onChange={this.handleChange}
+                                    // name="checkedB"
+                                    color="primary"
+                                />
+                                }
+                                label="Enable Booking"
+                                labelPlacement="start"
+                            />
+                        </Grid>
                         <div>
                             <Button className="button" color="primary" 
                                 type="submit"

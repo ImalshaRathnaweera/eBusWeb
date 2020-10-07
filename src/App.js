@@ -10,9 +10,14 @@ import PermanentDrawerLeft from './Component/sidebar/sidebar';
 import ResponsiveDrawer from './Component/sidebar/siebardup';
 import Profile from './Component/Profile/Profile';
 
+//Admin Routes
+import ViewUsers from './Component/Admin/ViewUsers';
+import ViewUserBuses from './Component/Admin/ViewUserBuses'; 
+
 // Notify messages
 import Success from './Component/Notification/Success';
 import Error from './Component/Notification/Error';
+import ConfirmDialog from './Component/Notification/ConfirmDialog';
 
 // Importing Routes for Conductor details
 import AddConductor from './Component/Conductor/AddConductors/AddConductor';
@@ -54,6 +59,10 @@ class App extends Component {
                       <Route exact path="/sidebar" component={PermanentDrawerLeft}/>
                       <Route exact path="/sidebardup" component={ResponsiveDrawer}/>
                       <Route exact path="/profile" component={Profile}/>
+
+                          {/* Routes for Admin */}
+                      <Route exact path="/viewUsers" component={ViewUsers}/>
+                      <Route exact path="/viewUserBuses" component={ViewUserBuses}/>
 
                           {/* Routes for Conductor */}
                       <Route exact path="/addconductor" component={AddConductor}/>
