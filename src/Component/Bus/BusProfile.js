@@ -13,12 +13,12 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ResponsiveDrawer from './../sidebar/siebardup';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {DialogActions, DialogContent,DialogContentText, DialogTitle} from '@material-ui/core';
+
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
+import ConfirmDialog from './../Notification/ConfirmDialog';
+import Success from './../Notification/Success';
 
 const useStyles = makeStyles((theme) =>({
     appBar: {
@@ -89,9 +89,11 @@ const useStyles = makeStyles((theme) =>({
 
 export default function BusProfile(props) {
     const classes = useStyles();
-
-    const [open, setOpen] = React.useState(false);
+    
     const [data, setData] = useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    
 
     console.log("one")
     console.log(props.match.params.id)
@@ -300,14 +302,23 @@ useEffect(() => {
                                         </DialogActions>
                                         </form>
                                     </Dialog>
+                                    <Success />
                                 </div>
                                 <Button className={clsx(classes.button)} 
                     
                                     variant="contained"
-                                    onClick = {()=>handleDelete(data._id)}
+                                    onClick={() => setConfirmOpen(true) }
+                                    //onClick = {()=>handleDelete(data._id)}
                                     >
                                     {'Delete Details'}
-                                    
+                                    <ConfirmDialog
+                                        title="Delete User"
+                                        open={confirmOpen}
+                                        setOpen={setConfirmOpen}
+                                        onConfirm={handleDelete(data._id)}
+                                    >
+                                        Are you sure you want to delete this user?
+                                    </ConfirmDialog>
                                 </Button>
                             </CardActions>
                         </Card>
