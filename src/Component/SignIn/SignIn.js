@@ -10,16 +10,20 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import G3 from  "../images/G3.png";
-
+import axios from "axios";
 
 class SignIn extends Component{
   constructor(props){
     super(props);
       this.state={
         email :"",
-        password:"",    
+        password:"", 
+        // loggedIn   
   }
-  this.handleSubmit = this.handleSubmit.bind(this)
+  this.emailhandler = this.emailhandler.bind(this);
+  this.passwordhandler = this.passwordhandler.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
+
 }
     emailhandler =(event)=>{
       this.setState({
@@ -33,7 +37,9 @@ class SignIn extends Component{
     }
 
     handleSubmit =(event) =>{
-      alert(`${this.state.email} ${this.state.password} Success`)
+
+      // alert(`${this.state.email} ${this.state.password} Success`)
+      axios.post('http://localhost:3000/api/user/me', event)
       this.props.history.push('/dashboard');
       // console.log(this.state);
       // this.state({
