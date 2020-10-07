@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-// import protectedRouter from '././Component/protected'
 import SignIn from './Component/SignIn/SignIn';  
 import SignUp from './Component/SignUp/SignUp'; 
 import ForgotPassword from './Component/PasswordReset/ForgotPassword';
@@ -53,7 +52,6 @@ class App extends Component {
                   <Switch>
                       <Route exact path="/" component={SignIn}/>
                       <Route exact path ="/signup" component ={SignUp}/>
-                      {/* <protectedRouter exact path = "/dashboard" component = {Dashboard}/> */}
                       <Route exact path="/dashboard" component={Dashboard}/>
                       <Route exact path="/forgotpassword" component={ForgotPassword}/>
                       <Route exact path="/resetpassword" component={ResetPassword}/>
