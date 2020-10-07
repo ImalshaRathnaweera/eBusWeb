@@ -9,7 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-<<<<<<< HEAD
+
 import G3 from  "../images/G3.png";
 import axios from 'axios';
 
@@ -256,7 +256,7 @@ class Signup extends React.Component{
 }
 }
 export default Signup;
-=======
+
 import G3 from "../images/G3.png";
 import axios from 'axios';
 
@@ -499,7 +499,7 @@ class SignUp extends React.Component {
                 boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
                 marginBottom: '10px',
               }}
-                type="botton"
+                type="submit"
                 variant="contained">
                 {'Sign Up'}
               </Button>
@@ -507,7 +507,7 @@ class SignUp extends React.Component {
               <br></br>
               <Grid item >
                 Do you have an account?
-                    <Link href="/" variant="body2">
+                    <Link href="/signup" variant="body2">
                   {"Sign In"}
                 </Link>
               </Grid>
@@ -519,8 +519,3 @@ class SignUp extends React.Component {
   }
 }
 export default SignUp;
-<<<<<<< HEAD
-=======
-
->>>>>>> 208c52c8ff166b8b2f3f7e937c911cb5e50851f1
->>>>>>> d2f2d30c650b9385c12548bf68f021fa86099922
