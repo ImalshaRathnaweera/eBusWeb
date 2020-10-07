@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) =>({
         fontSize: "4rem",
     },
     exampleContainer: {
-        paddingTop: theme.spacing(5),
+        paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(10)
     },
     dashBody: {
@@ -59,15 +59,22 @@ const useStyles = makeStyles((theme) =>({
     },
     button:{
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        borderRadius: 8,
-        border: 0,
         color: 'black',
         height: 48,
         width: "50%",
-        padding: '20px 30px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        padding: '20px 20px',
         alignItems: 'center',
         fontSize: '20px'
+    },
+    updateButton: {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        //backgroung:'#d500f9',
+        color: 'black',
+        height: 48,
+        width: "100%",
+        padding: '20px 80px',
+        fontSize: '20px',
+        marginRight: theme.spacing(8)
     },
     reportButton: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -171,8 +178,8 @@ useEffect(() => {
                     </Typography> 
                 </Box> */}
             </Box>
-            <Container maxWidth="md" className={classes.exampleContainer}>
-                <Grid container spacing={5}>
+            <Container maxWidth="lg" className={classes.exampleContainer}>
+                <Grid container spacing={3}>
                     <Grid item xs={8}>
                         <Card className={classes.card}>
                             <CardActionArea>
@@ -228,8 +235,8 @@ useEffect(() => {
                             </CardActionArea>
                             <CardActions>
                                 <div>
-                                    <Button 
-                                        variant="outlined" 
+                                    <Button className={clsx(classes.updateButton)}
+                                        variant="contained" 
                                         onClick={handleClickOpen}>
                                         {'Update Details'}
                                     </Button>
@@ -255,9 +262,6 @@ useEffect(() => {
                                                     onChange={e => setBusNo(e.target.value)}
                                                     autoFocus
                                                 />
-
-                                                {/* dan godak iwarai habai hama field ekama update kale naththan
-                                                update karapu nathi ewata null enawaa  */}
 
                                                 <TextField
                                                     variant="outlined"
