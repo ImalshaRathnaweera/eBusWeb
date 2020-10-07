@@ -15,9 +15,10 @@ import ResponsiveDrawer from './../sidebar/siebardup';
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ConfirmDialog from './../Notification/ConfirmDialog';
 
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // const Bus = props => (
 //   <tr>
@@ -103,6 +104,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ViewUsers() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -116,6 +119,16 @@ export default function ViewUsers() {
 
     fetchData();
   }, []);
+
+  let history = useHistory();
+  const handleDelete = (_id) => {
+      console.log(_id)
+      axios.post('http://localhost:4000/api/bus/delete', _id)  
+            .then(res => console.log(res.data));
+      console.log("item deleted");
+      history.push("/viewBuses");
+  }
+
 
   let counter = 1
   return (
@@ -158,12 +171,22 @@ export default function ViewUsers() {
                     <Link to={`/busProfile/${item._id}`}>
                       <button>View</button>
                     </Link>
-                    <Link to={`/busProfile/${item._id}`}>
+                    {/* <Link to={`/busProfile/${item._id}`}> */}
                       {/* <button>Delete</button> */}
-                      <IconButton aria-label="delete">
+                      <IconButton aria-label="delete" 
+                                  onClick={() => setConfirmOpen(true) }
+                                 >
                         <DeleteIcon />
                       </IconButton>
-                    </Link>
+                      <ConfirmDialog
+                        title="Delete User"
+                        open={confirmOpen}
+                        setOpen={setConfirmOpen}
+                        onConfirm={handleDelete}
+                      >
+                         Are you sure you want to delete this user?
+                      </ConfirmDialog>
+                    {/* </Link> */}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
