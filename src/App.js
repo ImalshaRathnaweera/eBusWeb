@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
+// import protectedRouter from '././Component/protected'
 import SignIn from './Component/SignIn/SignIn';  
 import SignUp from './Component/SignUp/SignUp'; 
 import ForgotPassword from './Component/PasswordReset/ForgotPassword';
@@ -10,9 +10,14 @@ import PermanentDrawerLeft from './Component/sidebar/sidebar';
 import ResponsiveDrawer from './Component/sidebar/siebardup';
 import Profile from './Component/Profile/Profile';
 
+//Admin Routes
+import ViewUsers from './Component/Admin/ViewUsers';
+import ViewUserBuses from './Component/Admin/ViewUserBuses'; 
+
 // Notify messages
 import Success from './Component/Notification/Success';
 import Error from './Component/Notification/Error';
+import ConfirmDialog from './Component/Notification/ConfirmDialog';
 
 // Importing Routes for Conductor details
 import AddConductor from './Component/Conductor/AddConductors/AddConductor';
@@ -39,8 +44,7 @@ import test from './Component/SignUp/test';
 //Report Generation
 
 import DatePic from './Component/ReportGeneration/DatePeriod';
-
-
+import CreateReport from './Component/ReportGeneration/CreateReport';
   
 class App extends Component { 
     render() {  
@@ -49,12 +53,17 @@ class App extends Component {
                   <Switch>
                       <Route exact path="/" component={SignIn}/>
                       <Route exact path ="/signup" component ={SignUp}/>
+                      {/* <protectedRouter exact path = "/dashboard" component = {Dashboard}/> */}
                       <Route exact path="/dashboard" component={Dashboard}/>
                       <Route exact path="/forgotpassword" component={ForgotPassword}/>
                       <Route exact path="/resetpassword" component={ResetPassword}/>
                       <Route exact path="/sidebar" component={PermanentDrawerLeft}/>
                       <Route exact path="/sidebardup" component={ResponsiveDrawer}/>
                       <Route exact path="/profile" component={Profile}/>
+
+                          {/* Routes for Admin */}
+                      <Route exact path="/viewUsers" component={ViewUsers}/>
+                      <Route exact path="/viewUserBuses" component={ViewUserBuses}/>
 
                           {/* Routes for Conductor */}
                       <Route exact path="/addconductor" component={AddConductor}/>
@@ -81,6 +90,7 @@ class App extends Component {
 
                       {/* Report Generation */}
                       <Route exact path = "/reportgeneration"  component ={DatePic}/>
+                      <Route exact path = "/createreport" component = {CreateReport}/>
                   </Switch>
               </Router>
           
