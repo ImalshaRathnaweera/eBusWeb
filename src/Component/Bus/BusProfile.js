@@ -18,7 +18,7 @@ import {DialogActions, DialogContent,DialogContentText, DialogTitle} from '@mate
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 import ConfirmDialog from './../Notification/ConfirmDialog';
-import Success from './../Notification/Success';
+import Notification from './../Notification/Notification';
 
 const useStyles = makeStyles((theme) =>({
     appBar: {
@@ -93,7 +93,8 @@ export default function BusProfile(props) {
     const [data, setData] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [confirmOpen, setConfirmOpen] = useState(false);
-    
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title:'', subtitle:''})
 
     console.log("one")
     console.log(props.match.params.id)
@@ -154,15 +155,31 @@ useEffect(() => {
 
         axios.post('http://localhost:4000/api/bus/update', newBus)  
              .then(res => console.log(res.data));
+        
+        // Notify message
+        setNotify({
+            isOpen: true,
+            message: 'Updated Successfully',
+            type: 'success'
+        })
     }
 
     let history = useHistory();
     const handleDelete = (_id) => {
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        })
         console.log(_id)
         axios.post('http://localhost:4000/api/bus/delete', _id)  
-             .then(res => console.log(res.data));
+            .then(res => console.log(res.data));
         console.log("item deleted");
-        history.push("/viewBuses");
+        setNotify({
+            isOpen: true,
+            message: 'Deleted Successfully',
+            type: 'error'
+        })
+        history.push("/viewBuses"); 
     }
 
 
@@ -171,7 +188,7 @@ useEffect(() => {
 
 
     return(
-        <div>
+        <>
             <ResponsiveDrawer/>
             <Box className={classes.buses}>
                 {/* <Box>
@@ -302,28 +319,26 @@ useEffect(() => {
                                         </DialogActions>
                                         </form>
                                     </Dialog>
-                                    <Success />
                                 </div>
+
                                 <Button className={clsx(classes.button)} 
                     
                                     variant="contained"
-                                    onClick={() => setConfirmOpen(true) }
-                                    //onClick = {()=>handleDelete(data._id)}
-                                    >
+                                    onClick={()=> {
+                                        setConfirmDialog({
+                                        isOpen: true,
+                                        title: 'Are you sure to delete this record?',
+                                        subTitle: "You can't undo this operation",
+                                        onConfirm: () => { handleDelete(data._id) }
+                                        })
+                                    }}
+                                    >  
                                     {'Delete Details'}
-                                    <ConfirmDialog
-                                        title="Delete User"
-                                        open={confirmOpen}
-                                        setOpen={setConfirmOpen}
-                                        onConfirm={handleDelete(data._id)}
-                                    >
-                                        Are you sure you want to delete this user?
-                                    </ConfirmDialog>
                                 </Button>
                             </CardActions>
                         </Card>
                     </Grid>
-
+                    
                     <Grid item xs={4}>
                         <Card className={classes.card}>
                             <CardActionArea>
@@ -360,8 +375,17 @@ useEffect(() => {
 
                 </Grid>
             </Container>
-
-        </div>
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+            <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+            /> 
+               
+        </>
+        
 
     )
 }
