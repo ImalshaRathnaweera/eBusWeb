@@ -13,12 +13,12 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ResponsiveDrawer from './../sidebar/siebardup';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {DialogActions, DialogContent,DialogContentText, DialogTitle} from '@material-ui/core';
+
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
+import ConfirmDialog from './../Notification/ConfirmDialog';
+import Notification from './../Notification/Notification';
 
 const useStyles = makeStyles((theme) =>({
     appBar: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) =>({
         fontSize: "4rem",
     },
     exampleContainer: {
-        paddingTop: theme.spacing(5),
+        paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(10)
     },
     dashBody: {
@@ -59,15 +59,22 @@ const useStyles = makeStyles((theme) =>({
     },
     button:{
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        borderRadius: 8,
-        border: 0,
         color: 'black',
         height: 48,
         width: "50%",
-        padding: '20px 30px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        padding: '20px 20px',
         alignItems: 'center',
         fontSize: '20px'
+    },
+    updateButton: {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        //backgroung:'#d500f9',
+        color: 'black',
+        height: 48,
+        width: "100%",
+        padding: '20px 80px',
+        fontSize: '20px',
+        marginRight: theme.spacing(8)
     },
     reportButton: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -82,9 +89,12 @@ const useStyles = makeStyles((theme) =>({
 
 export default function BusProfile(props) {
     const classes = useStyles();
-
-    const [open, setOpen] = React.useState(false);
+    
     const [data, setData] = useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title:'', subtitle:''})
 
     console.log("one")
     console.log(props.match.params.id)
@@ -112,7 +122,7 @@ useEffect(() => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: props.match.params.id })
     };
-    fetch('http://localhost:4000/api/bus/bus-profile', requestOptions)
+    fetch('http://localhost:3000/api/bus/bus-profile', requestOptions)
         .then(response => response.json())
         .then(data => setData(data));
 
@@ -143,17 +153,38 @@ useEffect(() => {
         }
         console.log(newBus)
 
-        axios.post('http://localhost:4000/api/bus/update', newBus)  
+        axios.post('http://localhost:3000/api/bus/update', newBus)  
              .then(res => console.log(res.data));
+        
+        // Notify message
+        setNotify({
+            isOpen: true,
+            message: 'Updated Successfully',
+            type: 'success'
+        })
     }
 
     let history = useHistory();
     const handleDelete = (_id) => {
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        })
         console.log(_id)
-        axios.post('http://localhost:4000/api/bus/delete', _id)  
+<<<<<<< HEAD
+        axios.post('http://localhost:3000/api/bus/delete', _id)  
              .then(res => console.log(res.data));
+=======
+        axios.post('http://localhost:4000/api/bus/delete', _id)  
+            .then(res => console.log(res.data));
+>>>>>>> 12400adbd374e087001852d0857850c8970c6687
         console.log("item deleted");
-        history.push("/viewBuses");
+        setNotify({
+            isOpen: true,
+            message: 'Deleted Successfully',
+            type: 'error'
+        })
+        history.push("/viewBuses"); 
     }
 
 
@@ -162,7 +193,7 @@ useEffect(() => {
 
 
     return(
-        <div>
+        <>
             <ResponsiveDrawer/>
             <Box className={classes.buses}>
                 {/* <Box>
@@ -171,8 +202,8 @@ useEffect(() => {
                     </Typography> 
                 </Box> */}
             </Box>
-            <Container maxWidth="md" className={classes.exampleContainer}>
-                <Grid container spacing={5}>
+            <Container maxWidth="lg" className={classes.exampleContainer}>
+                <Grid container spacing={3}>
                     <Grid item xs={8}>
                         <Card className={classes.card}>
                             <CardActionArea>
@@ -187,7 +218,7 @@ useEffect(() => {
                                                 label="Bus Number"
                                                 value={data.busNo}
                                                 InputProps={{
-                                                    readOnly: true,
+                                                    readOnly: false,
                                                 }}
                                                 InputLabelProps={{
                                                     shrink: true
@@ -228,8 +259,8 @@ useEffect(() => {
                             </CardActionArea>
                             <CardActions>
                                 <div>
-                                    <Button 
-                                        variant="outlined" 
+                                    <Button className={clsx(classes.updateButton)}
+                                        variant="contained" 
                                         onClick={handleClickOpen}>
                                         {'Update Details'}
                                     </Button>
@@ -255,9 +286,6 @@ useEffect(() => {
                                                     onChange={e => setBusNo(e.target.value)}
                                                     autoFocus
                                                 />
-
-                                                {/* dan godak iwarai habai hama field ekama update kale naththan
-                                                update karapu nathi ewata null enawaa  */}
 
                                                 <TextField
                                                     variant="outlined"
@@ -297,18 +325,25 @@ useEffect(() => {
                                         </form>
                                     </Dialog>
                                 </div>
+
                                 <Button className={clsx(classes.button)} 
                     
                                     variant="contained"
-                                    onClick = {()=>handleDelete(data._id)}
-                                    >
+                                    onClick={()=> {
+                                        setConfirmDialog({
+                                        isOpen: true,
+                                        title: 'Are you sure to delete this record?',
+                                        subTitle: "You can't undo this operation",
+                                        onConfirm: () => { handleDelete(data._id) }
+                                        })
+                                    }}
+                                    >  
                                     {'Delete Details'}
-                                    
                                 </Button>
                             </CardActions>
                         </Card>
                     </Grid>
-
+                    
                     <Grid item xs={4}>
                         <Card className={classes.card}>
                             <CardActionArea>
@@ -345,8 +380,17 @@ useEffect(() => {
 
                 </Grid>
             </Container>
-
-        </div>
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+            <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+            /> 
+               
+        </>
+        
 
     )
 }

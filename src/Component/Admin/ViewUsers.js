@@ -13,8 +13,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ResponsiveDrawer from './../sidebar/siebardup';
 
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import ConfirmDialog from './../Notification/ConfirmDialog';
+import Notification from './../Notification/Notification';
+
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // const Bus = props => (
 //   <tr>
@@ -89,11 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
 
-  margin: {
-    margin: theme.spacing(2),
-    marginRight: theme.spacing(1)
-  },
-  
+
   card: {
     maxWidth: '180px',
     backgroundColor: 'transparent',
@@ -102,14 +104,18 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function ViewBuses() {
-  const classes = useStyles();
-  const [data, setData] = useState([]);
+export default function ViewUsers() {
+  const classes = useStyles()
+  const [open, setOpen] = React.useState(false)
+  //const [confirmOpen, setConfirmOpen] = useState(false)
+  const [data, setData] = useState([])
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title:'', subtitle:''})
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'http://localhost:3000/api/bus',
+        'http://localhost:4000/api/bus',
       );
 
       setData(result.data);
@@ -117,6 +123,25 @@ export default function ViewBuses() {
 
     fetchData();
   }, []);
+
+  let history = useHistory();
+  const handleDelete = (_id) => {
+      setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+      })
+      console.log(_id)
+      axios.post('http://localhost:4000/api/bus/delete', _id)  
+            .then(res => console.log(res.data));
+      console.log("item deleted");
+      setNotify({
+            isOpen: true,
+            message: 'Deleted Successfully',
+            type: 'error'
+        })
+      history.push("/viewBuses");
+  }
+
 
   let counter = 1
   return (
@@ -126,21 +151,21 @@ export default function ViewBuses() {
 
 
         <Typography component="h2" variant="" className={classes.welcome}>
-          Bus Details
+          User Details
             </Typography>
 
-        <Button variant="contained" color="primary" href="/busRegister" className={classes.margin}>
-          Add New Bus
-              </Button>
-        
+        <br></br>
+
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center">Id</StyledTableCell>
-                <StyledTableCell align="center">Bus No</StyledTableCell>
-                <StyledTableCell align="center">Bus Route</StyledTableCell>
-                <StyledTableCell align="center">BusCapacity</StyledTableCell>
+                <StyledTableCell align="center">Name</StyledTableCell>
+                <StyledTableCell align="center">Email</StyledTableCell>
+                <StyledTableCell align="center">Address</StyledTableCell>
+                <StyledTableCell align="center">NIC</StyledTableCell>
+                <StyledTableCell align="center">Contact</StyledTableCell>
                 <StyledTableCell align="center">Action</StyledTableCell>
 
               </TableRow>
@@ -153,11 +178,39 @@ export default function ViewBuses() {
                   <StyledTableCell align="center" >{item.busNo}</StyledTableCell>
                   <StyledTableCell align="center">{item.busRoute}</StyledTableCell>
                   <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
-                  {/* <StyledTableCell align="right">{item.busRoute}</StyledTableCell> */}
+                  <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
+                  <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
                   <StyledTableCell align="center">
                     <Link to={`/busProfile/${item._id}`}>
-                      <button>View</button>
+                      {/* <button>View</button> */}
+                      <IconButton aria-label="visibility" >
+                        <VisibilityIcon />
+                      </IconButton>
                     </Link>
+                    
+                      {/* <button>Delete</button> */}
+                      <IconButton aria-label="delete" 
+                                  //onClick={() => setConfirmOpen(true) }
+                                  onClick={()=> {
+                                    setConfirmDialog({
+                                      isOpen: true,
+                                      title: 'Are you sure to delete this record?',
+                                      subTitle: "You can't undo this operation",
+                                      onConfirm: () => { handleDelete(data._id) }
+                                    })
+                                  }}
+                                 >
+                        <DeleteIcon />
+                      </IconButton>
+                      {/* <ConfirmDialog
+                        title="Delete User"
+                        open={confirmOpen}
+                        setOpen={setConfirmOpen}
+                        onConfirm={handleDelete}
+                      >
+                         Are you sure you want to delete this user?
+                      </ConfirmDialog> */}
+                    
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -165,13 +218,18 @@ export default function ViewBuses() {
             </TableBody>
           </Table>
         </TableContainer>
-        <div>
-
-        </div>
+        
         <br></br>
 
-
       </Grid>
+      <Notification
+          notify={notify}
+          setNotify={setNotify}
+      />
+      <ConfirmDialog
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
+      />
     </Grid>
   );
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
 import SignIn from './Component/SignIn/SignIn';  
 import SignUp from './Component/SignUp/SignUp'; 
 import ForgotPassword from './Component/PasswordReset/ForgotPassword';
@@ -10,9 +9,14 @@ import PermanentDrawerLeft from './Component/sidebar/sidebar';
 import ResponsiveDrawer from './Component/sidebar/siebardup';
 import Profile from './Component/Profile/Profile';
 
+//Admin Routes
+import ViewUsers from './Component/Admin/ViewUsers';
+import ViewUserBuses from './Component/Admin/ViewUserBuses'; 
+
 // Notify messages
 import Success from './Component/Notification/Success';
 import Error from './Component/Notification/Error';
+import ConfirmDialog from './Component/Notification/ConfirmDialog';
 
 // Importing Routes for Conductor details
 import AddConductor from './Component/Conductor/AddConductors/AddConductor';
@@ -55,6 +59,10 @@ class App extends Component {
                       <Route exact path="/sidebardup" component={ResponsiveDrawer}/>
                       <Route exact path="/profile" component={Profile}/>
 
+                          {/* Routes for Admin */}
+                      <Route exact path="/viewUsers" component={ViewUsers}/>
+                      <Route exact path="/viewUserBuses" component={ViewUserBuses}/>
+
                           {/* Routes for Conductor */}
                       <Route exact path="/addconductor" component={AddConductor}/>
                       <Route exact path="/viewconductor" component={ViewConductor}/>
@@ -73,7 +81,6 @@ class App extends Component {
                       <Route exact path="/formDialog" component={FormDialog}/>
                       <Route exact path="/checkView" component={CheckingView}/>        
                       <Route exact path="/exampleform" component={ExampleForm}/>
-                      {/* <Route exact path="/exampleView" component={ExampleView}/> */}
 
                       <Route exact path="/viewsingleconductor" component={ViewSingleConductor}/>
                       <Route exact path="/test" component={test}/>
