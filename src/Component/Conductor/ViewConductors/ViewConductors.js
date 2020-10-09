@@ -216,7 +216,7 @@ export default function ViewConductor() {
 
                     </Button>
 
-                    <Button variant="outlined" color="primary" onClick={() => handleClickOpenTest(item._id)s}>
+                    <Button variant="outlined" color="primary" onClick={() => handleClickOpenTest(item._id)}>
                         Open form dialog
                       </Button>
                     

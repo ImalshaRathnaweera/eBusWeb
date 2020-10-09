@@ -171,13 +171,8 @@ useEffect(() => {
             isOpen: false
         })
         console.log(_id)
-<<<<<<< HEAD
-        axios.post('http://localhost:3000/api/bus/delete', _id)  
-             .then(res => console.log(res.data));
-=======
         axios.post('http://localhost:4000/api/bus/delete', _id)  
             .then(res => console.log(res.data));
->>>>>>> 12400adbd374e087001852d0857850c8970c6687
         console.log("item deleted");
         setNotify({
             isOpen: true,
