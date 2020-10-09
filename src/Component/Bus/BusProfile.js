@@ -13,12 +13,12 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ResponsiveDrawer from './../sidebar/siebardup';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {DialogActions, DialogContent,DialogContentText, DialogTitle} from '@material-ui/core';
+
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
+import ConfirmDialog from './../Notification/ConfirmDialog';
+import Notification from './../Notification/Notification';
 
 const useStyles = makeStyles((theme) =>({
     appBar: {
@@ -89,9 +89,12 @@ const useStyles = makeStyles((theme) =>({
 
 export default function BusProfile(props) {
     const classes = useStyles();
-
-    const [open, setOpen] = React.useState(false);
+    
     const [data, setData] = useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title:'', subtitle:''})
 
     console.log("one")
     console.log(props.match.params.id)
@@ -152,15 +155,36 @@ useEffect(() => {
 
         axios.post('http://localhost:3000/api/bus/update', newBus)  
              .then(res => console.log(res.data));
+        
+        // Notify message
+        setNotify({
+            isOpen: true,
+            message: 'Updated Successfully',
+            type: 'success'
+        })
     }
 
     let history = useHistory();
     const handleDelete = (_id) => {
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        })
         console.log(_id)
+<<<<<<< HEAD
         axios.post('http://localhost:3000/api/bus/delete', _id)  
              .then(res => console.log(res.data));
+=======
+        axios.post('http://localhost:4000/api/bus/delete', _id)  
+            .then(res => console.log(res.data));
+>>>>>>> 12400adbd374e087001852d0857850c8970c6687
         console.log("item deleted");
-        history.push("/viewBuses");
+        setNotify({
+            isOpen: true,
+            message: 'Deleted Successfully',
+            type: 'error'
+        })
+        history.push("/viewBuses"); 
     }
 
 
@@ -169,7 +193,7 @@ useEffect(() => {
 
 
     return(
-        <div>
+        <>
             <ResponsiveDrawer/>
             <Box className={classes.buses}>
                 {/* <Box>
@@ -301,18 +325,25 @@ useEffect(() => {
                                         </form>
                                     </Dialog>
                                 </div>
+
                                 <Button className={clsx(classes.button)} 
                     
                                     variant="contained"
-                                    onClick = {()=>handleDelete(data._id)}
-                                    >
+                                    onClick={()=> {
+                                        setConfirmDialog({
+                                        isOpen: true,
+                                        title: 'Are you sure to delete this record?',
+                                        subTitle: "You can't undo this operation",
+                                        onConfirm: () => { handleDelete(data._id) }
+                                        })
+                                    }}
+                                    >  
                                     {'Delete Details'}
-                                    
                                 </Button>
                             </CardActions>
                         </Card>
                     </Grid>
-
+                    
                     <Grid item xs={4}>
                         <Card className={classes.card}>
                             <CardActionArea>
@@ -349,8 +380,17 @@ useEffect(() => {
 
                 </Grid>
             </Container>
-
-        </div>
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+            <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+            /> 
+               
+        </>
+        
 
     )
 }

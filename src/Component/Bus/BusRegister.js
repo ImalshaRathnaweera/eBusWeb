@@ -72,7 +72,11 @@ export default class BusRegister extends React.Component {
             busCapacity: this.state.busCapacity
         }
 
+<<<<<<< HEAD
         axios.post('http://localhost:3000/api/bus/register', newBus)
+=======
+        axios.post('http://localhost:4000/api/bus/register', newBus)
+>>>>>>> 12400adbd374e087001852d0857850c8970c6687
              .then(res => console.log(res.data));
 
         this.setState({
@@ -80,6 +84,12 @@ export default class BusRegister extends React.Component {
             busRoute: '',
             busCapacity: ''
         })
+    // Notify message
+        // setNotify({
+        //         isOpen: true,
+        //         message: 'Submitted Successfully',
+        //         type: 'success'
+        //     })
     }
 
     // componentDidMount(){
