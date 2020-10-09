@@ -35,7 +35,7 @@ import Table from './Component/Layouts/Table'
 import FormDialog from './Component/Layouts/DialogForm'
 import CheckingView from './Component/Layouts/CheckingView'
 import ExampleForm from './Component/Layouts/ExampleForm'
-// import ExampleView from './Component/Layouts/ExampleView'
+import DynamicInput from './Component/Layouts/DynamicInput'
 
 //import ViewSingleConductor from './Component/sidebar/siebardup'
 import test from './Component/SignUp/test';
@@ -81,6 +81,7 @@ class App extends Component {
                       <Route exact path="/formDialog" component={FormDialog}/>
                       <Route exact path="/checkView" component={CheckingView}/>        
                       <Route exact path="/exampleform" component={ExampleForm}/>
+                      <Route exact path="/dynamicInput" component={DynamicInput}/>
 
                       <Route exact path="/viewsingleconductor" component={ViewSingleConductor}/>
                       <Route exact path="/test" component={test}/>
