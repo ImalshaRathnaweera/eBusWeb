@@ -165,9 +165,9 @@ function ResponsiveDrawer(props) {
               </ListItem>
               </Link >
 
-              <Link href="/" variant="body2" underline="none">
+              <Link href="/logout" variant="body2" underline="none">
               <ListItem button>
-                <ListItemText primary="Log Out" />
+                <ListItemText primary="Logout" />
               </ListItem>
               </Link >
            
