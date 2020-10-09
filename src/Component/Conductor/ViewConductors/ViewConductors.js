@@ -12,8 +12,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ResponsiveDrawer from './../../sidebar/siebardup';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField'
 import { Link } from "react-router-dom";
 
 // const Bus = props => (
@@ -119,6 +125,21 @@ const useStyles = makeStyles((theme) => ({
 export default function ViewConductor() {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [open, setOpen] = React.useState(false);
+
+  //try
+  const handleClickOpenTest = (_id) => {
+    console.log(_id)
+    setOpen(true);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -128,11 +149,22 @@ export default function ViewConductor() {
 
       setData(result.data);
     };
-
     fetchData();
   }, []);
 
   let counter = 1
+  let history = useHistory();
+  const handleDelete = (_id) => {
+    console.log(_id)
+    let obj = {
+      id: _id
+    }
+    axios.post('http://localhost:3000/api/conductor/delete', obj)
+      .then(res => console.log(res.data));
+    console.log("item deleted");
+    history.push("/viewConductor");
+  }
+
   return (
     <Grid container className={classes.root}>
       <ResponsiveDrawer />
@@ -151,14 +183,14 @@ export default function ViewConductor() {
           <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
-              <StyledTableCell align="right">ID</StyledTableCell>
-                  <StyledTableCell align="right">Name</StyledTableCell>
-                  <StyledTableCell align="right">Email</StyledTableCell>
-                  <StyledTableCell align="right">NIC</StyledTableCell>
-                  <StyledTableCell align="right">Conductor License No</StyledTableCell>
-                  <StyledTableCell align="right">Address</StyledTableCell>
-                  <StyledTableCell align="right">Contact No</StyledTableCell>
-                  <StyledTableCell align="right">Action</StyledTableCell>
+                <StyledTableCell align="right">ID</StyledTableCell>
+                <StyledTableCell align="right">Name</StyledTableCell>
+                <StyledTableCell align="right">Email</StyledTableCell>
+                <StyledTableCell align="right">NIC</StyledTableCell>
+                <StyledTableCell align="right">Conductor License No</StyledTableCell>
+                <StyledTableCell align="right">Address</StyledTableCell>
+                <StyledTableCell align="right">Contact No</StyledTableCell>
+                <StyledTableCell align="right">Action</StyledTableCell>
 
               </TableRow>
             </TableHead>
@@ -173,11 +205,56 @@ export default function ViewConductor() {
                   <StyledTableCell align="center">{item.conductorNumber}</StyledTableCell>
                   <StyledTableCell align="center">{item.address}</StyledTableCell>
                   <StyledTableCell align="center">{item.contact}</StyledTableCell>
-                  {/* <StyledTableCell align="right">{item.busRoute}</StyledTableCell> */}
                   <StyledTableCell align="center">
-                    <Link to={`/busProfile/${item._id}`}>
-                      <button>View</button>
-                    </Link>
+
+                    <Button
+
+                      variant="contained"
+                      onClick={() => handleDelete(item._id)}
+                    >
+                      {'Delete'}
+
+                    </Button>
+
+                    <Button variant="outlined" color="primary" onClick={() => handleClickOpenTest(item._id)s}>
+                        Open form dialog
+                      </Button>
+                    
+                      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                        Open form dialog
+                      </Button> */}
+                      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                        <DialogContent>
+                          <DialogContentText>
+                            To subscribe to this website, please enter your email address here. We will send updates
+                            occasionally.
+                          </DialogContentText>
+                          <TextField
+                                                    variant="outlined"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="name"
+                                                    label="Name"
+                                                    name="name"
+                                                    defaultValue={item.name}
+                                                    //onChange={e => setBusNo(e.target.value)}
+                                                    autoFocus
+                                                />
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose} color="primary">
+                            Cancel
+                          </Button>
+                          <Button onClick={handleClose} color="primary">
+                            Subscribe
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                   
+
+
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

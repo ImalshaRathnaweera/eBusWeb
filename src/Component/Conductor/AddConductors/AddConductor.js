@@ -71,20 +71,11 @@ class AddConductor extends React.Component{
         contact: this.state.contact,
     }
 
-<<<<<<< HEAD
       axios.post('http://localhost:3000/api/conductor/register', newConductor)
          .then(res => console.log(res.data));
       
 
       this.props.history.push('/viewconductor');
-=======
-    
-      axios.post('http://localhost:3000/api/conductor/register', newConductor)
-         .then(res => console.log(res.data));
-
-      this.props.history.push('/viewconductor');
-      this.props.history.push('/dashboard');
->>>>>>> d2f2d30c650b9385c12548bf68f021fa86099922
       event.preventDefault()
     }
 
@@ -190,22 +181,6 @@ class AddConductor extends React.Component{
               autoComplete="address"
               value={this.state.address}
               onChange ={this.addresshandler}
-<<<<<<< HEAD
-=======
-            />
-               
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={this.state.password}
-              onChange ={this.passwordhandler}
->>>>>>> d2f2d30c650b9385c12548bf68f021fa86099922
             />
                
             <TextField

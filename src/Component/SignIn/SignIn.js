@@ -10,21 +10,21 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import G3 from  "../images/G3.png";
-<<<<<<< HEAD
-
-=======
 import { useHistory } from 'react-router-dom';
 // import axios from "axios";
->>>>>>> a39217b09d77ec6b5096bc0179fa75bf1fb4512f
 
 class SignIn extends Component{
   constructor(props){
     super(props);
       this.state={
         email :"",
-        password:"",    
+        password:"", 
+        // loggedIn   
   }
-  this.handleSubmit = this.handleSubmit.bind(this)
+  this.emailhandler = this.emailhandler.bind(this);
+  this.passwordhandler = this.passwordhandler.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
+
 }
     emailhandler =(event)=>{
       this.setState({
@@ -37,17 +37,6 @@ class SignIn extends Component{
       })
     }
 
-<<<<<<< HEAD
-    handleSubmit =(event) =>{
-      alert(`${this.state.email} ${this.state.password} Success`)
-      this.props.history.push('/dashboard');
-      // console.log(this.state);
-      // this.state({
-      //   email:"",
-      //   password:"",
-      // })
-      event.preventDefault()
-=======
     // handleSubmit () {
 
     //   const data= {
@@ -88,7 +77,6 @@ class SignIn extends Component{
         
       })
       .catch(err=>console.log(err))
->>>>>>> a39217b09d77ec6b5096bc0179fa75bf1fb4512f
     }
 
 

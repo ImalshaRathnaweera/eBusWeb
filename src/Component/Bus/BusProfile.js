@@ -119,7 +119,7 @@ useEffect(() => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: props.match.params.id })
     };
-    fetch('http://localhost:4000/api/bus/bus-profile', requestOptions)
+    fetch('http://localhost:3000/api/bus/bus-profile', requestOptions)
         .then(response => response.json())
         .then(data => setData(data));
 
@@ -150,14 +150,14 @@ useEffect(() => {
         }
         console.log(newBus)
 
-        axios.post('http://localhost:4000/api/bus/update', newBus)  
+        axios.post('http://localhost:3000/api/bus/update', newBus)  
              .then(res => console.log(res.data));
     }
 
     let history = useHistory();
     const handleDelete = (_id) => {
         console.log(_id)
-        axios.post('http://localhost:4000/api/bus/delete', _id)  
+        axios.post('http://localhost:3000/api/bus/delete', _id)  
              .then(res => console.log(res.data));
         console.log("item deleted");
         history.push("/viewBuses");
@@ -194,7 +194,7 @@ useEffect(() => {
                                                 label="Bus Number"
                                                 value={data.busNo}
                                                 InputProps={{
-                                                    readOnly: true,
+                                                    readOnly: false,
                                                 }}
                                                 InputLabelProps={{
                                                     shrink: true

@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-<<<<<<< HEAD
-
-=======
->>>>>>> a39217b09d77ec6b5096bc0179fa75bf1fb4512f
 import SignIn from './Component/SignIn/SignIn';  
 import SignUp from './Component/SignUp/SignUp'; 
 import ForgotPassword from './Component/PasswordReset/ForgotPassword';
