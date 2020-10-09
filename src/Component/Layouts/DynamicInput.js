@@ -49,27 +49,41 @@ function DynamicInput() {
 
     return ( 
         <Container>
-          <h1>Welcome</h1>
           <form className={classes.root} onSubmit={handleSubmit}>
+             {/* <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="busNumber"
+                  label="Bus Number"
+                  name="busNumber"
+                  //value={this.state.busNo}
+                  //onChange={this.onChangeBusNumber}
+                  // onChange={this.onChange}
+                  autoFocus
+              /> */}
             { inputFields.map((inputField, index) => (
                 <div key={index}> 
                    <TextField
                      name="cityInbetween"
                      label="Booking Enabled City"
-                     variant="filled"
+                     variant="outlined"
                      value={inputField.cityInbetween}
                      onChange={event => handleChangeInput(index, event)}  
                    />
-                   <IconButton 
+
+                   {inputFields.length!==1 && <IconButton 
                       onClick = {() =>handleRemoveFields(index)}
                    >
                      <RemoveIcon />
-                   </IconButton>
-                   <IconButton
+                   </IconButton>}
+
+                   {inputFields.length - 1 === index && <IconButton
                       onClick={() => handleAddFields()}
                    >
                      <AddIcon />
-                   </IconButton>
+                   </IconButton>}
                 </div>
             ))}
             <Button

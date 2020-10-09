@@ -17,7 +17,7 @@ export default function Notification(props) {
         if (reason === 'clickaway') {
             return;
         }
-        setNotify({
+        props.setNotify({ // added props.
             ...notify,
             isOpen: false
         })
@@ -26,7 +26,7 @@ export default function Notification(props) {
     return (
         <Snackbar
             className={classes.root}
-            open={notify.isOpen}
+            open={props.notify.isOpen}  // added props.
             autoHideDuration={3000}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             onClose={handleClose}>

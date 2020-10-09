@@ -93,7 +93,7 @@ export default function BusProfile(props) {
     const [data, setData] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [confirmOpen, setConfirmOpen] = useState(false);
-    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+    const [notify, setNotify] = useState({ isOpen: true, message: '', type: '' })  //changed isOpen to true
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title:'', subtitle:''})
 
     console.log("one")

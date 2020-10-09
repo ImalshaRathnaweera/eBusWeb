@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
+import DynamicInput from './../Layouts/DynamicInput';
+
 // sending requests
 import axios from 'axios';
 
@@ -80,6 +82,14 @@ export default class BusRegister extends React.Component {
             busRoute: '',
             busCapacity: ''
         })
+
+        // setNotification=(isOpen,msg)=>{
+        //     this.setState({
+        //         busNo: '',
+        //         busRoute: '',
+        //         busCapacity: ''
+        //     })
+        // }
     // Notify message
         // setNotify({
         //         isOpen: true,
@@ -185,6 +195,7 @@ export default class BusRegister extends React.Component {
                         </div>
                         <br></br>               
                     </form>
+                    <DynamicInput />
                 </Paper>
                 </Grid>
             </Grid>
