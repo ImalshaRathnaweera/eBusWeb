@@ -15,7 +15,9 @@ import ResponsiveDrawer from './../sidebar/siebardup';
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import ConfirmDialog from './../Notification/ConfirmDialog';
+import Notification from './../Notification/Notification';
 
 import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";
@@ -103,10 +105,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ViewUsers() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const classes = useStyles()
+  const [open, setOpen] = React.useState(false)
+  //const [confirmOpen, setConfirmOpen] = useState(false)
+  const [data, setData] = useState([])
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title:'', subtitle:''})
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,10 +126,19 @@ export default function ViewUsers() {
 
   let history = useHistory();
   const handleDelete = (_id) => {
+      setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+      })
       console.log(_id)
       axios.post('http://localhost:4000/api/bus/delete', _id)  
             .then(res => console.log(res.data));
       console.log("item deleted");
+      setNotify({
+            isOpen: true,
+            message: 'Deleted Successfully',
+            type: 'error'
+        })
       history.push("/viewBuses");
   }
 
@@ -169,24 +182,35 @@ export default function ViewUsers() {
                   <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
                   <StyledTableCell align="center">
                     <Link to={`/busProfile/${item._id}`}>
-                      <button>View</button>
+                      {/* <button>View</button> */}
+                      <IconButton aria-label="visibility" >
+                        <VisibilityIcon />
+                      </IconButton>
                     </Link>
-                    {/* <Link to={`/busProfile/${item._id}`}> */}
+                    
                       {/* <button>Delete</button> */}
                       <IconButton aria-label="delete" 
-                                  onClick={() => setConfirmOpen(true) }
+                                  //onClick={() => setConfirmOpen(true) }
+                                  onClick={()=> {
+                                    setConfirmDialog({
+                                      isOpen: true,
+                                      title: 'Are you sure to delete this record?',
+                                      subTitle: "You can't undo this operation",
+                                      onConfirm: () => { handleDelete(data._id) }
+                                    })
+                                  }}
                                  >
                         <DeleteIcon />
                       </IconButton>
-                      <ConfirmDialog
+                      {/* <ConfirmDialog
                         title="Delete User"
                         open={confirmOpen}
                         setOpen={setConfirmOpen}
                         onConfirm={handleDelete}
                       >
                          Are you sure you want to delete this user?
-                      </ConfirmDialog>
-                    {/* </Link> */}
+                      </ConfirmDialog> */}
+                    
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -194,13 +218,18 @@ export default function ViewUsers() {
             </TableBody>
           </Table>
         </TableContainer>
-        <div>
-
-        </div>
+        
         <br></br>
 
-
       </Grid>
+      <Notification
+          notify={notify}
+          setNotify={setNotify}
+      />
+      <ConfirmDialog
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
+      />
     </Grid>
   );
 }

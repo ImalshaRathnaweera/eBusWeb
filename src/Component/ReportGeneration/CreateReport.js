@@ -107,13 +107,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CreatReport() {
-    
     const classes = useStyles();
-
-   const handleDownload = () =>{
-       axios.post('/create-pdf')
-
-    }
     return (
 
         <Grid container className={classes.root}>
@@ -128,34 +122,18 @@ function CreatReport() {
                                 <StyledTableCell align="center">Id</StyledTableCell>
                                 <StyledTableCell align="center">Bus No</StyledTableCell>
                                 <StyledTableCell align="center">Bus Route</StyledTableCell>
-                                <StyledTableCell align="center">income</StyledTableCell>
-                                <StyledTableCell align="center">total</StyledTableCell>
+                                <StyledTableCell align="center">BusCapacity</StyledTableCell>
+                                <StyledTableCell align="center">Action</StyledTableCell>
 
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <StyledTableRow>
-                                <StyledTableCell align="center">001</StyledTableCell>
-                                <StyledTableCell align="center">22</StyledTableCell>
-                                <StyledTableCell align="center">galle</StyledTableCell>
-                                <StyledTableCell align="center">1000</StyledTableCell>
-                                <StyledTableCell align="center">5000</StyledTableCell>
-                            </StyledTableRow>
-
-                            <StyledTableRow>
-                                <StyledTableCell align="center">001</StyledTableCell>
-                                <StyledTableCell align="center">22</StyledTableCell>
-                                <StyledTableCell align="center">galle</StyledTableCell>
-                                <StyledTableCell align="center">1000</StyledTableCell>
-                                <StyledTableCell align="center">5000</StyledTableCell>
-                            </StyledTableRow>
-
-                            <StyledTableRow>
-                                <StyledTableCell align="center">001</StyledTableCell>
-                                <StyledTableCell align="center">22</StyledTableCell>
-                                <StyledTableCell align="center">galle</StyledTableCell>
-                                <StyledTableCell align="center">1000</StyledTableCell>
-                                <StyledTableCell align="center">5000</StyledTableCell>
+                                <StyledTableCell align="center"></StyledTableCell>
+                                <StyledTableCell align="center"></StyledTableCell>
+                                <StyledTableCell align="center"></StyledTableCell>
+                                <StyledTableCell align="center"></StyledTableCell>
+                                <StyledTableCell align="center"></StyledTableCell>
                             </StyledTableRow>
                         </TableBody>
                     </Table>
@@ -163,8 +141,7 @@ function CreatReport() {
 
                 <Button className={clsx(classes.button)}
                     type="submit"
-                    variant="contained"
-                    onClick={handleDownload}>
+                    variant="contained">
                    {'Download PDF'}
                 </Button>
 
