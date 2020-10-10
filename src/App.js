@@ -23,6 +23,7 @@ import AddConductor from './Component/Conductor/AddConductors/AddConductor';
 import ViewConductor from './Component/Conductor/ViewConductors/ViewConductors';
 import ViewConductorDup from './Component/Conductor/ViewConductors/ViewConductorsDup';
 import ViewSingleConductor from './Component/Conductor/ViewConductors/ViewSingleConductor'
+import UpdateConductors from './Component/Conductor/ViewConductors/UpdateConductors'
 
 // Importing Routes for Bus details
 import BusRegister from './Component/Bus/BusRegister'
@@ -69,6 +70,7 @@ class App extends Component {
                       <Route exact path="/addconductor" component={AddConductor}/>
                       <Route exact path="/viewconductordup" component={ViewConductorDup}/>
                       <Route exact path="/viewsingleconductor" component={ViewSingleConductor}/>
+                      <Route exact path="/UpdateConductors/:id" component={UpdateConductors}/>
 
                           {/* Routes for buses */}
                       <Route exact path="/busRegister" component={BusRegister}/>

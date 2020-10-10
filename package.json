@@ -12,10 +12,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
-<<<<<<< HEAD
     "file-saver": "^2.0.2",
-=======
->>>>>>> 12400adbd374e087001852d0857850c8970c6687
     "form-control-react": "^1.0.9",
     "json-server": "^0.16.1",
     "material-table": "^1.63.1",
