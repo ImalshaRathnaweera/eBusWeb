@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-// import jwtDecode from 'jwt-decode';
+ import jwtDecode from 'jwt-decode';
 import authService from './Service/authService'
 import SignIn from './Component/SignIn/SignIn';  
 import SignUp from './Component/SignUp/SignUp'; 
@@ -47,19 +47,21 @@ import test from './Component/SignUp/test';
 import DatePic from './Component/ReportGeneration/DatePeriod';
 import CreateReport from './Component/ReportGeneration/CreateReport';
 import Logout from './Component/Dashboard/Logout';
+import ProtectedRoute from './Component/ProtectedRoutes';
   
 class App extends Component {
     state={};
     componentDidMount() {
-        const user = authService.getCurrentUser();
-        this.setState({user});
+        // const user = authService.getCurrentUser();
+        // this.setState({user});
+        // console.log(user);
 
-        // try {
-        //     const jwt=localStorage.getItem("token");
-        //     const user=jwtDecode(jwt);
-        //     console.log(user);
-        //     this.setState({user})
-        // } catch (error) {}
+        try {
+            const jwt=localStorage.getItem("token");
+            const user=jwtDecode(jwt);
+            // console.log(user);
+            this.setState({user})
+        } catch (error) {}
     }
      
     render() {  

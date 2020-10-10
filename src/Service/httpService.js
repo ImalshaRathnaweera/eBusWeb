@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authService from './authService'
 
-//axios.default.headers.common['x-auth-token'] =authService.getjwt();
+//axios.default.headers.common['x-auth-token'] =authService.getJwt();
 
 axios.interceptors.response.use(null,error=>{
     const expectedError =
@@ -16,10 +16,10 @@ axios.interceptors.response.use(null,error=>{
     return Promise.reject(error);
 });
 
-function setJwt(jwt){
-     axios.default.headers.common['x-auth-token'] =jwt
+// function setJwt(jwt){
+//      axios.default.headers.common['x-auth-token'] =jwt
 
-}
+// }
 
 export default {
     get:axios.get,
