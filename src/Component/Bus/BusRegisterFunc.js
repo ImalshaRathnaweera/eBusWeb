@@ -2,15 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Grid, } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme =>({
-    root: {
-       '& .MuiFormControl-root': {
-           width: '80%',
-           margin: theme.spacing(1)
-       } 
-    }
-}))
+import { useForm, Form } from './../Bus_Form/useForm';
 
 
 const initialFValues = {
@@ -19,24 +11,26 @@ const initialFValues = {
     startPoint: '',
     endPoint: '',
     busCapacity: '',
-    isBookEnable: false,
+    isReserveEnable: false,
     forwardStartPoint: '',
-    startDepartureTime
+    forwardDepartTime:'',
     backwardStartPoint: '',
-    endDepartureTime: '',
+    backwardDepartTime: '',
+    noOfReservation: ''
 }
 
 
 
 export default function BusRegisterFunc() {
 
-    const classes = useStyles();
-
-    useForm(initialFValues);
-
+    const {
+        values,
+        setValues,
+        handleInputChange
+    } = useForm(initialFValues);
     
     return (
-        <form className={classes.root}>
+            <Form>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
                     <TextField
@@ -55,17 +49,76 @@ export default function BusRegisterFunc() {
                     />
                     <TextField
                       variant="outlined"
-                      label="Bus Route"
-                      name="busRoute"
-                      value={values.busRoute}
+                      label="Start Point"
+                      name="startPoint"
+                      value={values.startPoint}
                       onChange={handleInputChange}
                     />
+                    <TextField
+                      variant="outlined"
+                      label="End Point"
+                      name="endPoint"
+                      value={values.endPoint}
+                      onChange={handleInputChange}
+                    />
+                    <TextField
+                      variant="outlined"
+                      label="Bus Capacity"
+                      name="busCapacity"
+                      value={values.busCapacity}
+                      onChange={handleInputChange}
+                    />
+                    <TextField           // CheckBox
+                      variant="outlined"   
+                      label="Bus Capacity"
+                      name="isReserveEnable"
+                      value={values.isReserveEnable}
+                      onChange={handleInputChange}
+                    />
+                    
                 </Grid>
-                <Grid item xs={6}>
-                </Grid>
+                
+                  {/* <FormControl>
+                    <FormLabel>Maximum number of reservations</FormLabel>
+                    
+                    <FormHelperText></FormHelperText>
+                  </FormControl> */}
+                <div>
+                    <TextField
+                        variant="outlined"
+                        label="Start Point"
+                        name="forwardStartPoint"
+                        value={values.forwardStartPoint}
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        variant="outlined"
+                        label="Departure Time"
+                        name="forwardDepartTime"
+                        value={values.forwardDepartTime}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        variant="outlined"
+                        label="Start Point"
+                        name="backwardStartPoint"
+                        value={values.backwardStartPoint}
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        variant="outlined"
+                        label="Departure Time"
+                        name="backwardDepartTime"
+                        value={values.backwardDepartTime}
+                        onChange={handleInputChange}
+                    />
+
+                </div>
               
             </Grid>
-        </form>
+            </Form>
     )
 }
 
