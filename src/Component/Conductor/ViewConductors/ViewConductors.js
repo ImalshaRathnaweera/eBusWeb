@@ -126,11 +126,19 @@ export default function ViewConductor() {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [passdata, passData] = useState([]);
 
   //try
   const handleClickOpenTest = (_id) => {
-    console.log(_id)
+    console.log(_id);
+    passData(_id);
     setOpen(true);
+  };
+
+  const passesData = (_id) => {
+    console.log("Check Plz")
+    console.log(_id)
+    passdata = _id
   };
 
   const handleClickOpen = () => {
@@ -140,6 +148,11 @@ export default function ViewConductor() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const UpdateConductor = (_id) => {
+    history.push('/UpdateConductors/' + _id);
+
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -159,6 +172,7 @@ export default function ViewConductor() {
     let obj = {
       id: _id
     }
+    console.log(obj)
     axios.post('http://localhost:3000/api/conductor/delete', obj)
       .then(res => console.log(res.data));
     console.log("item deleted");
@@ -215,44 +229,47 @@ export default function ViewConductor() {
                       {'Delete'}
 
                     </Button>
+                    {/* 
+                    <Link to={`/UpdateConductors/${item._id}`}>
+                      <button>View</button>
+                    </Link> */}
+                    <button onClick={() => UpdateConductor(item._id)}>View</button>
 
-                    <Button variant="outlined" color="primary" onClick={() => handleClickOpenTest(item._id)}>
-                        Open form dialog
-                      </Button>
-                    
-                      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                        Open form dialog
-                      </Button> */}
-                      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                        <DialogContent>
-                          <DialogContentText>
-                            To subscribe to this website, please enter your email address here. We will send updates
-                            occasionally.
-                          </DialogContentText>
-                          <TextField
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    id="name"
-                                                    label="Name"
-                                                    name="name"
-                                                    defaultValue={item.name}
-                                                    //onChange={e => setBusNo(e.target.value)}
-                                                    autoFocus
-                                                />
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={handleClose} color="primary">
-                            Cancel
+                    {/* This is the working one */}
+                    {/* <Button variant="outlined" color="primary" onClick={() => handleClickOpenTest(item._id)}>
+                      Open form dialog
+                    </Button>
+
+
+                    <Dialog open={open} onClose={handleClose}  aria-labelledby="form-dialog-title">
+                      <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          To subscribe to this website, please enter your email address here. We will send updates
+                          occasionally.
+                        </DialogContentText>
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="name"
+                          label="Name"
+                          name="name"
+                          defaultValue={item.name}
+                          //onChange={e => setBusNo(e.target.value)}
+                          autoFocus
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
                           </Button>
-                          <Button onClick={handleClose} color="primary">
-                            Subscribe
+                        <Button onClick={handleClose} color="primary">
+                          Subscribe
                           </Button>
-                        </DialogActions>
-                      </Dialog>
-                   
+                      </DialogActions>
+                    </Dialog> */}
 
 
                   </StyledTableCell>
