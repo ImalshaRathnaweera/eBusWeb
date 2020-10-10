@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Success from '../Notification/Success';
 import '../../Css/Profile.scss';
 import axios from 'axios';
+import {getCurrentUser} from '../../Service/authService';
 
 class Profile extends Component {
     constructor(props) {
@@ -19,7 +20,8 @@ class Profile extends Component {
             name: "",
             email: "",
             address: "",
-            contactNo: "",
+            phoneNumber: "",
+            user:{},
 
 
         }
@@ -35,30 +37,40 @@ class Profile extends Component {
         this.setState({
             display: !currentStatus
         })
-    }
+    };
+
+//update profile s
+    componentDidMount(){
+        const user = getCurrentUser();
+        this.setState({user:user});
+        console.log("User :",user);
+    };
 
     onSubmit = (e) => {
         e.preventDefault();
-        // this.setState({
-        //     snackbaropen: true,
-        //     snackbarmsg: "successful",
-        //     snackbarcolor: 'success',
-        // });
         const data = {
             name: this.state.name,
             email: this.state.email,
             address: this.state.address,
-            contact: this.state.contact,
+            phoneNumber: this.state.phoneNumber,
 
-        }
+        };
+    
         axios.post('http://localhost:3000/api/user/owner/update', data)
             .then(res => {
 
-                this.setState({
-                    snackbaropen: true,
-                    snackbarmsg: "successful",
-                    snackbarcolor: 'success',
-                });
+            const jwt = res.headers["x-auth-token"]
+            localStorage.setItem('token', jwt);
+            console.log(res);
+            this.props.history.push('/profile');
+
+                // this.props.history.push('/profile');
+
+                // this.setState({
+                //     snackbaropen: true,
+                //     snackbarmsg: "successful",
+                //     snackbarcolor: 'success',
+                // });
             }).catch(err => {
                 console.log(err);
 
@@ -82,7 +94,7 @@ class Profile extends Component {
     };
     contacthandler = (e) => {
         this.setState({
-            contact: e.target.value
+            phoneNumber: e.target.value
         })
 
     };
@@ -103,6 +115,7 @@ class Profile extends Component {
     };
     handlePasswordChange = (e) => {
         e.preventDefault();
+        
 
     };
     render() {
@@ -121,7 +134,8 @@ class Profile extends Component {
                         fullWidth
                         id="name"
                         label="UserName"
-                        name="name"
+                        // name="name"
+                        defaultValue={this.state.user.name}
                         onChange={this.namehandler}
                     // autoFocus
                     />
@@ -132,7 +146,8 @@ class Profile extends Component {
                         fullWidth
                         id="email"
                         label="Email Address or UserName"
-                        name="email"
+                        // name="email"
+                        defaultValue={this.state.user.email}
                         onChange={this.emailhandler}
                     // autoFocus
                     />
@@ -143,7 +158,8 @@ class Profile extends Component {
                         fullWidth
                         id="address"
                         label="Address"
-                        name="address"
+                        // name="address"
+                        defaultValue={this.state.user.ownerMeta.address}
                         onChange={this.addresshandler}
                     />
                     <TextField
@@ -151,9 +167,10 @@ class Profile extends Component {
                         margin="normal"
                         required
                         fullWidth
-                        id="contact"
+                        id="phoneNumber"
                         label="Contact No"
-                        name="contact"
+                        // name="phoneNumber"
+                        defaultValue={this.state.user.phoneNumber}
                         onChange={this.contacthandler}
 
                     />
@@ -214,10 +231,10 @@ class Profile extends Component {
                             <form onSubmit={this.toggleHandler}>
                                 <Typography style={{ textAlign: 'center', fontSize: '20px' }}>
                                     <div>
-                                        <p><b>Name:</b>&nbsp; John Steewan</p>
-                                        <p><b>Email:</b>&nbsp; johnsteewan1984@gmail.com</p>
-                                        <p><b>Address:</b>&nbsp;No.10 ,Reid Avenue, Colombo 07</p>
-                                        <p><b>Contact:</b>&nbsp;0776789632</p>
+                                        <p><b>Name:</b>&nbsp; {this.state.user.name}</p>
+                                        <p><b>Email:</b>&nbsp; {this.state.user.email}</p>
+                                        {/* <p><b>Address:</b>&nbsp;{this.state.user.ownerMeta.address}</p> */}
+                                        <p><b>Contact:</b>&nbsp;{this.state.user.phoneNumber}</p>
                                     </div>
                                 </Typography>
                                 <Grid style={{
