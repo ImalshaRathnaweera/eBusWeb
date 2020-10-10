@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Success from '../Notification/Success';
 import '../../Css/Profile.scss';
+import axios from 'axios';
 
 class Profile extends Component {
     constructor(props) {
@@ -15,7 +16,18 @@ class Profile extends Component {
             snackbaropen: false,
             snackbarmsg: '',
             snackbarcolor: '',
+            name: "",
+            email: "",
+            address: "",
+            contactNo: "",
+
+
         }
+        this.onSubmit = this.onSubmit.bind(this);
+        this.namehandler = this.namehandler.bind(this);
+        this.emailhandler = this.emailhandler.bind(this);
+        this.addresshandler = this.addresshandler.bind(this);
+        this.contacthandler = this.contacthandler.bind(this);
     }
     toggleHandler = (e) => {
         e.preventDefault();
@@ -27,12 +39,55 @@ class Profile extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.setState({
-            snackbaropen: true,
-            snackbarmsg: "successful",
-            snackbarcolor: 'success',
-        })
+        // this.setState({
+        //     snackbaropen: true,
+        //     snackbarmsg: "successful",
+        //     snackbarcolor: 'success',
+        // });
+        const data = {
+            name: this.state.name,
+            email: this.state.email,
+            address: this.state.address,
+            contact: this.state.contact,
+
+        }
+        axios.post('http://localhost:3000/api/user/owner/update', data)
+            .then(res => {
+
+                this.setState({
+                    snackbaropen: true,
+                    snackbarmsg: "successful",
+                    snackbarcolor: 'success',
+                });
+            }).catch(err => {
+                console.log(err);
+
+            })
+
     };
+    namehandler = (e) => {
+        this.setState({
+            name: e.target.value
+        });
+    };
+    emailhandler = (e) => {
+        this.setState({
+            email: e.target.value
+        });
+    };
+    addresshandler = (e) => {
+        this.setState({
+            address: e.target.value
+        });
+    };
+    contacthandler = (e) => {
+        this.setState({
+            contact: e.target.value
+        })
+
+    };
+
+
     closeAlert = () => {
         this.setState({ snackbaropen: false });
     };
@@ -45,13 +100,17 @@ class Profile extends Component {
             }
         }
         reader.readAsDataURL(e.target.files[0])
-    }
+    };
+    handlePasswordChange = (e) => {
+        e.preventDefault();
+
+    };
     render() {
         const { profileIma } = this.state;
         let content = null;
         if (this.state.display) {
             content = <Paper className="paper" >
-                <form >
+                <form onSubmit={this.onSubmit}>
                     <Typography className="topic1">
                         Update Profile Details
                     </Typography>
@@ -60,10 +119,22 @@ class Profile extends Component {
                         margin="normal"
                         required
                         fullWidth
+                        id="name"
+                        label="UserName"
+                        name="name"
+                        onChange={this.namehandler}
+                    // autoFocus
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
                         id="email"
                         label="Email Address or UserName"
                         name="email"
-                        autoFocus
+                        onChange={this.emailhandler}
+                    // autoFocus
                     />
                     <TextField
                         variant="outlined"
@@ -73,21 +144,25 @@ class Profile extends Component {
                         id="address"
                         label="Address"
                         name="address"
+                        onChange={this.addresshandler}
                     />
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="contactNo"
+                        id="contact"
                         label="Contact No"
-                        name="contactNo"
+                        name="contact"
+                        onChange={this.contacthandler}
 
                     />
 
                     <Button className="btn"
-                        onClick={this.onSubmit}
-                        variant="contained" >Save</Button>
+                        variant="contained"
+                        type="submit"
+                    >
+                        Save</Button>
 
                 </form>
             </Paper>
@@ -136,7 +211,7 @@ class Profile extends Component {
                                     </label>
                                 </Grid>
                             </Grid>
-                            <form  >
+                            <form onSubmit={this.toggleHandler}>
                                 <Typography style={{ textAlign: 'center', fontSize: '20px' }}>
                                     <div>
                                         <p><b>Name:</b>&nbsp; John Steewan</p>
@@ -153,7 +228,7 @@ class Profile extends Component {
                                     <Button className="btn"
                                         type="submit"
                                         variant="contained"
-                                        onClick={this.toggleHandler}>Update</Button>
+                                    >Update</Button>
                                 </Grid>
                             </form>
                         </Paper>
@@ -161,7 +236,7 @@ class Profile extends Component {
                     </Grid>
                     <Grid item item xs={12} sm={6}>
                         <Paper className="paper">
-                            <form>
+                            <form onSubmit={this.handlePasswordChange}>
                                 <Typography className="topic2">
                                     Change Your Password
                                 </Typography>
