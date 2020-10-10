@@ -205,9 +205,9 @@ export default function PersistentDrawerLeft() {
               </ListItem>
               </Link >
 
-              <Link href="/" variant="body2" underline="none">
+              <Link href='/logout' variant="body2" underline="none">
               <ListItem button>
-                <ListItemText primary="Log Out" />
+                <ListItemText primary="Log" />
               </ListItem>
               </Link >
            
