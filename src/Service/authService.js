@@ -22,14 +22,21 @@ export const logout=()=>{
 }
 
 export const getCurrentUser=()=>{
-    try {
-        const jwt=localStorage.getItem(tokenKey);
+    console.log('moda imalsha!')
+    const jwt=localStorage.getItem(tokenKey);
         const user=jwtDecode(jwt);
         console.log(user);
-        this.setState({user})
-    } catch (error) {
-        return null;
-    }
+        // this.setState({user})
+        return user;
+    // try {
+    //     const jwt=localStorage.getItem(tokenKey);
+    //     const user=jwtDecode(jwt);
+    //     console.log(user);
+    //     // this.setState({user})
+    //     return user;
+    // } catch (error) {
+    //     return null;
+    // }
        
 }
 export const getJwt=()=>{
