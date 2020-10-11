@@ -11,6 +11,7 @@ import PermanentDrawerLeft from './Component/sidebar/sidebar';
 import ResponsiveDrawer from './Component/sidebar/siebardup';
 import Profile from './Component/Profile/Profile';
 
+
 //Admin Routes
 import ViewUsers from './Component/Admin/ViewUsers';
 import ViewUserBuses from './Component/Admin/ViewUserBuses'; 
@@ -25,7 +26,8 @@ import AddConductor from './Component/Conductor/AddConductors/AddConductor';
 import ViewConductor from './Component/Conductor/ViewConductors/ViewConductors';
 import ViewConductorDup from './Component/Conductor/ViewConductors/ViewConductorsDup';
 import ViewSingleConductor from './Component/Conductor/ViewConductors/ViewSingleConductor'
-import UpdateConductors from './Component/Conductor/ViewConductors/UpdateConductors'
+import UpdateConductors from './Component/Conductor/ViewConductors/UpdateConductors';
+import ConductorForm from './Component/Conductor/ConductorForm'
 
 // Importing Routes for Bus details
 import BusRegister from './Component/Bus/BusRegister'
@@ -96,6 +98,8 @@ class App extends Component {
                       <Route exact path="/viewconductordup" component={ViewConductorDup}/>
                       <Route exact path="/viewsingleconductor" component={ViewSingleConductor}/>
                       <Route exact path="/UpdateConductors/:id" component={UpdateConductors}/>
+                      <Route exact path="/ConductorForm" component={ConductorForm}/>
+
 
                           {/* Routes for buses */}
                       <Route exact path="/busRegister" component={BusRegister}/>
