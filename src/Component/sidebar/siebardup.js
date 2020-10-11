@@ -140,7 +140,7 @@ function ResponsiveDrawer(props) {
             <ListItemText primary="Reports" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse  timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem button className={classes.nested}>
               <Link href="/reportgeneration" variant="body2" underline="none">
@@ -159,17 +159,23 @@ function ResponsiveDrawer(props) {
               </ListItem>
               </List>
           </Collapse>
-              <Link href="/profile" variant="body2" underline="none">
+
+          <Link href="/passengers" variant="body2" underline="none">
+              <ListItem button>
+                <ListItemText primary="Passengers" />
+              </ListItem>
+          </Link >
+          <Link href="/profile" variant="body2" underline="none">
               <ListItem button>
                 <ListItemText primary="Profle" />
               </ListItem>
-              </Link >
+          </Link >
 
-              <Link href="/" variant="body2" underline="none">
+          <Link href="/logout" variant="body2" underline="none">
               <ListItem button>
-                <ListItemText primary="Log Out" />
+                <ListItemText primary="Logout" />
               </ListItem>
-              </Link >
+          </Link >
            
         </List>
 

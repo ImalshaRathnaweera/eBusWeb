@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function CreatReport() {
+function Report() {
     const classes = useStyles();
     return (
 

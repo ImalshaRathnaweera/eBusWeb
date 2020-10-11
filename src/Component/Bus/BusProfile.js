@@ -13,12 +13,12 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ResponsiveDrawer from './../sidebar/siebardup';
 import Dialog from '@material-ui/core/Dialog';
-import {DialogActions, DialogContent,DialogContentText, DialogTitle} from '@material-ui/core';
-
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
-import ConfirmDialog from './../Notification/ConfirmDialog';
-import Notification from './../Notification/Notification';
 
 const useStyles = makeStyles((theme) =>({
     appBar: {
@@ -89,12 +89,12 @@ const useStyles = makeStyles((theme) =>({
 
 export default function BusProfile(props) {
     const classes = useStyles();
-    
-    const [data, setData] = useState([]);
+
     const [open, setOpen] = React.useState(false);
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [notify, setNotify] = useState({ isOpen: true, message: '', type: '' })  //changed isOpen to true
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title:'', subtitle:''})
+    const [data, setData] = useState([]);
 
     console.log("one")
     console.log(props.match.params.id)
@@ -122,9 +122,10 @@ useEffect(() => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: props.match.params.id })
     };
-    fetch('http://localhost:4000/api/bus/bus-profile', requestOptions)
+    fetch('http://localhost:3000/api/bus/bus-profile', requestOptions)
         .then(response => response.json())
         .then(data => setData(data));
+        
 
 // empty dependency array means this effect will only run once (like componentDidMount in classes)
 }, []);
@@ -153,33 +154,21 @@ useEffect(() => {
         }
         console.log(newBus)
 
-        axios.post('http://localhost:4000/api/bus/update', newBus)  
+        axios.post('http://localhost:3000/api/bus/update', newBus)  
              .then(res => console.log(res.data));
-        
-        // Notify message
-        setNotify({
-            isOpen: true,
-            message: 'Updated Successfully',
-            type: 'success'
-        })
     }
 
     let history = useHistory();
     const handleDelete = (_id) => {
-        setConfirmDialog({
-            ...confirmDialog,
-            isOpen: false
-        })
+        // setConfirmDialog({
+        //     ...confirmDialog,
+        //     isOpen: false
+        // })
         console.log(_id)
         axios.post('http://localhost:4000/api/bus/delete', _id)  
-            .then(res => console.log(res.data));
+             .then(res => console.log(res.data));
         console.log("item deleted");
-        setNotify({
-            isOpen: true,
-            message: 'Deleted Successfully',
-            type: 'error'
-        })
-        history.push("/viewBuses"); 
+        history.push("/viewBuses");
     }
 
 
@@ -188,7 +177,7 @@ useEffect(() => {
 
 
     return(
-        <>
+        <div>
             <ResponsiveDrawer/>
             <Box className={classes.buses}>
                 {/* <Box>
@@ -312,7 +301,7 @@ useEffect(() => {
                                         <Button 
                                             type="submit"
                                             color="primary"
-                                            // onClick={handleUpdate}
+                                            onClick={handleUpdate}
                                         >
                                             Update
                                         </Button>
@@ -320,25 +309,18 @@ useEffect(() => {
                                         </form>
                                     </Dialog>
                                 </div>
-
                                 <Button className={clsx(classes.button)} 
                     
                                     variant="contained"
-                                    onClick={()=> {
-                                        setConfirmDialog({
-                                        isOpen: true,
-                                        title: 'Are you sure to delete this record?',
-                                        subTitle: "You can't undo this operation",
-                                        onConfirm: () => { handleDelete(data._id) }
-                                        })
-                                    }}
-                                    >  
+                                    onClick = {()=>handleDelete(data._id)}
+                                    >
                                     {'Delete Details'}
+                                    
                                 </Button>
                             </CardActions>
                         </Card>
                     </Grid>
-                    
+
                     <Grid item xs={4}>
                         <Card className={classes.card}>
                             <CardActionArea>
@@ -375,17 +357,8 @@ useEffect(() => {
 
                 </Grid>
             </Container>
-            <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
-            <ConfirmDialog
-                confirmDialog={confirmDialog}
-                setConfirmDialog={setConfirmDialog}
-            /> 
-               
-        </>
-        
+
+        </div>
 
     )
 }

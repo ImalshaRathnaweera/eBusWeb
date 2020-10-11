@@ -109,7 +109,7 @@ export default function ViewBuses() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'http://localhost:4000/api/bus',
+        'http://localhost:3000/api/bus',
       );
 
       setData(result.data);
@@ -153,7 +153,6 @@ export default function ViewBuses() {
                   <StyledTableCell align="center" >{item.busNo}</StyledTableCell>
                   <StyledTableCell align="center">{item.busRoute}</StyledTableCell>
                   <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
-                  {/* <StyledTableCell align="right">{item.busRoute}</StyledTableCell> */}
                   <StyledTableCell align="center">
                     <Link to={`/busProfile/${item._id}`}>
                       <button>View</button>

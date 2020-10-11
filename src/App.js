@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+ import jwtDecode from 'jwt-decode';
+import authService from './Service/authService'
 import SignIn from './Component/SignIn/SignIn';  
 import SignUp from './Component/SignUp/SignUp'; 
 import ForgotPassword from './Component/PasswordReset/ForgotPassword';
@@ -14,8 +16,8 @@ import ViewUsers from './Component/Admin/ViewUsers';
 import ViewUserBuses from './Component/Admin/ViewUserBuses'; 
 
 // Notify messages
-import Success from './Component/Notification/Success';
-import Error from './Component/Notification/Error';
+// import Success from './Component/Notification/Success';
+// import Error from './Component/Notification/Error';
 import ConfirmDialog from './Component/Notification/ConfirmDialog';
 
 // Importing Routes for Conductor details
@@ -23,6 +25,7 @@ import AddConductor from './Component/Conductor/AddConductors/AddConductor';
 import ViewConductor from './Component/Conductor/ViewConductors/ViewConductors';
 import ViewConductorDup from './Component/Conductor/ViewConductors/ViewConductorsDup';
 import ViewSingleConductor from './Component/Conductor/ViewConductors/ViewSingleConductor'
+import UpdateConductors from './Component/Conductor/ViewConductors/UpdateConductors'
 
 // Importing Routes for Bus details
 import BusRegister from './Component/Bus/BusRegister'
@@ -45,19 +48,50 @@ import test from './Component/SignUp/test';
 
 import DatePic from './Component/ReportGeneration/DatePeriod';
 import CreateReport from './Component/ReportGeneration/CreateReport';
+import Logout from './Component/Dashboard/Logout';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoute from './Component/ProtectedRoutes';
+
+
+//Passenger Routes
+import Passenger from './Component/Passengers/Passengers'
   
-class App extends Component { 
+class App extends Component {
+    state={};
+    componentDidMount() {
+        // const user = authService.getCurrentUser();
+        // this.setState({user});
+        // console.log(user);
+
+        try {
+            const jwt=localStorage.getItem("token");
+            const user=jwtDecode(jwt);
+            // console.log(user);
+            this.setState({user})
+        } catch (error) {}
+    }
+     
     render() {  
+        // <ToastContainer/>
+        const {user}=this.state;
           return (  
               <Router>
+                  <ToastContainer
+                  position="top-left"
+                  autoClose={3000}
+                  style={{ width: "800px" }}
+                  />
                   <Switch>
-                      <Route exact path="/" component={SignIn}/>
+                      {user &&  <Route exact path="/" component={Dashboard}/>}
+                      {!user && <Route exact path="/" component={SignIn}/> }
                       <Route exact path ="/signup" component ={SignUp}/>
                       <Route exact path="/dashboard" component={Dashboard}/>
                       <Route exact path="/forgotpassword" component={ForgotPassword}/>
                       <Route exact path="/resetpassword" component={ResetPassword}/>
                       <Route exact path="/sidebar" component={PermanentDrawerLeft}/>
                       <Route exact path="/sidebardup" component={ResponsiveDrawer}/>
+                      <Route exact path="/logout" component={Logout}/>
                       <Route exact path="/profile" component={Profile}/>
 
                           {/* Routes for Admin */}
@@ -70,6 +104,7 @@ class App extends Component {
                       <Route exact path="/addconductor" component={AddConductor}/>
                       <Route exact path="/viewconductordup" component={ViewConductorDup}/>
                       <Route exact path="/viewsingleconductor" component={ViewSingleConductor}/>
+                      <Route exact path="/UpdateConductors/:id" component={UpdateConductors}/>
 
                           {/* Routes for buses */}
                       <Route exact path="/busRegister" component={BusRegister}/>
@@ -91,6 +126,9 @@ class App extends Component {
                       {/* Report Generation */}
                       <Route exact path = "/reportgeneration"  component ={DatePic}/>
                       <Route exact path = "/createreport" component = {CreateReport}/>
+
+                      {/* Routes for Passenger */}
+                      <Route exact path = "/passengers"  component ={Passenger}/>
                   </Switch>
               </Router>
           
