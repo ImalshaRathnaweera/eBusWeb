@@ -12,6 +12,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ResponsiveDrawer from './../sidebar/siebardup';
+import ReactToPrint from 'react-to-print';
 
 import axios from 'axios';
 import { Link } from "react-router-dom";
@@ -94,17 +95,15 @@ export default function Passengers() {
     const [data, setData] = useState([]);
     const [searchTerm, setSearchTerm] = React.useState("");
     const [searchResults, setSearchResults] = React.useState([]);
-
+    
     const handleChange = event => {
         setSearchTerm(event.target.value);
-        //console.log(event.target.value)
     };
 
 
+    //console.log(searchTerm)
 
-    
     useEffect(() => {
-        console.log(searchTerm)
         const fetchData = async () => {
             const result = await axios(
                 'http://localhost:3000/api/user/',
@@ -132,7 +131,7 @@ export default function Passengers() {
                     value={searchTerm}
                     onChange={handleChange}
                 />
-
+                
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>

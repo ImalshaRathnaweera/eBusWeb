@@ -11,6 +11,7 @@ import PermanentDrawerLeft from './Component/sidebar/sidebar';
 import ResponsiveDrawer from './Component/sidebar/siebardup';
 import Profile from './Component/Profile/Profile';
 
+
 //Admin Routes
 import ViewUsers from './Component/Admin/ViewUsers';
 import ViewUserBuses from './Component/Admin/ViewUserBuses'; 
@@ -25,7 +26,8 @@ import AddConductor from './Component/Conductor/AddConductors/AddConductor';
 import ViewConductor from './Component/Conductor/ViewConductors/ViewConductors';
 import ViewConductorDup from './Component/Conductor/ViewConductors/ViewConductorsDup';
 import ViewSingleConductor from './Component/Conductor/ViewConductors/ViewSingleConductor'
-import UpdateConductors from './Component/Conductor/ViewConductors/UpdateConductors'
+import UpdateConductors from './Component/Conductor/ViewConductors/UpdateConductors';
+import ConductorForm from './Component/Conductor/ConductorForm'
 
 // Importing Routes for Bus details
 import BusRegister from './Component/Bus/BusRegister'
@@ -48,6 +50,8 @@ import test from './Component/SignUp/test';
 import DatePic from './Component/ReportGeneration/DatePeriod';
 import CreateReport from './Component/ReportGeneration/CreateReport';
 import Logout from './Component/Dashboard/Logout';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './Component/ProtectedRoutes';
 
 
@@ -70,9 +74,15 @@ class App extends Component {
     }
      
     render() {  
+        // <ToastContainer/>
         const {user}=this.state;
           return (  
               <Router>
+                  <ToastContainer
+                  position="top-left"
+                  autoClose={3000}
+                  style={{ width: "800px" }}
+                  />
                   <Switch>
                       {user &&  <Route exact path="/" component={Dashboard}/>}
                       {!user && <Route exact path="/" component={SignIn}/> }
@@ -96,6 +106,8 @@ class App extends Component {
                       <Route exact path="/viewconductordup" component={ViewConductorDup}/>
                       <Route exact path="/viewsingleconductor" component={ViewSingleConductor}/>
                       <Route exact path="/UpdateConductors/:id" component={UpdateConductors}/>
+                      <Route exact path="/ConductorForm" component={ConductorForm}/>
+
 
                           {/* Routes for buses */}
                       <Route exact path="/busRegister" component={BusRegister}/>

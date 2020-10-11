@@ -3,6 +3,7 @@ import authService from '../../Service/authService';
 
 export default class Logout extends Component {
     componentDidMount() {
+        
         authService.logout();
         window.location = '/';
     }
