@@ -44,7 +44,11 @@ const useStyles = makeStyles((theme) => ({
       }
   }));
 export default function ForgotPassword(){
-    const classes = useStyles();  
+    const classes = useStyles();
+    
+   const handleSubmit = ()=>{
+
+    }
 
         return (
           <Grid className={classes.root}>
@@ -68,7 +72,7 @@ export default function ForgotPassword(){
                 
             }}>
               
-            <form >
+            <form onSubmit={handleSubmit()}>
                 <Typography>
                     <p>To recover your password, You need to enter correct email address and we will send you a link to reset your password. <br/>
                     Please check your email and reset the password.</p>

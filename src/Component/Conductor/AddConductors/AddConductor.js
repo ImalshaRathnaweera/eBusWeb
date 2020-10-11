@@ -53,18 +53,20 @@ class AddConductor extends React.Component{
       })
       console.log(event.target.value)
     }
+    conductornumberhandler =(event) =>{
+      this.setState({
+        conductornumber:event.target.value
+      })
+      console.log(event.target.value)
+    }
     passwordhandler =(event) =>{
       this.setState({
         password:event.target.value
       })
       console.log(event.target.value)
     }
-    confirmpasswordhandler =(event) =>{
-      this.setState({
-        confirmpassword:event.target.value
-      })
-      console.log(event.target.value)
-    }
+
+
 
     handleSubmit =(event) =>{
       alert(`${this.state.email} ${this.state.password} Success`)
@@ -75,14 +77,14 @@ class AddConductor extends React.Component{
         conductorNumber: this.state.conductornumber,
         address: this.state.address,
         contact: this.state.contact,
+        password: this.state.password
     }
 
-    
       axios.post('http://localhost:3000/api/conductor/register', newConductor)
          .then(res => console.log(res.data));
+      
 
       this.props.history.push('/viewconductor');
-      this.props.history.push('/dashboard');
       event.preventDefault()
     }
 
@@ -150,18 +152,6 @@ class AddConductor extends React.Component{
               value={this.state.email}
               onChange ={this.emailhandler}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="address"
-              label="Address"
-              name="address"
-              autoComplete="address"
-              value={this.state.address}
-              onChange ={this.addresshandler}
-            />
 
             
             <TextField
@@ -207,12 +197,12 @@ class AddConductor extends React.Component{
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={this.state.password}
-              onChange ={this.passwordhandler}
+              id="contact"
+              label="Contact Number"
+              name="contact"
+              autoComplete="contact"
+              value={this.state.contact}
+              onChange ={this.contacthandler}
             />
 
             <TextField
@@ -220,12 +210,12 @@ class AddConductor extends React.Component{
               margin="normal"
               required
               fullWidth
-              name="confirmpassword"
-              label="Confirm Password"
-              type="confirmpassword"
-              id="confirmpassword"
-              value={this.state.confirmpassword}
-              onChange ={this.confirmpasswordhandler}
+              id="password"
+              label="Password (For the first time owner should generate)"
+              name="password"
+              autoComplete="password"
+              value={this.state.password}
+              onChange ={this.passwordhandler}
             />
 
                 <Grid item>
@@ -244,16 +234,10 @@ class AddConductor extends React.Component{
                 }} 
                 type="submit"
                 variant="contained">
-                 {'Sign Up'}
+                 {'Register'}
                </Button>
                {/* </Link> */}
                 <br></br>
-                <Grid item >
-                   Do you have an account?
-                    <Link href="/signup" variant="body2">
-                     {"Sign In"}
-                    </Link>
-                </Grid>    
             </form>
          </Paper>
         </Grid>

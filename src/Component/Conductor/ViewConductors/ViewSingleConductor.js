@@ -2,13 +2,13 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import PermanentDrawerLeft from './../../sidebar/sidebar';
+// import PermanentDrawerLeft from './../../sidebar/sidebar';
 import ResponsiveDrawer from './../../sidebar/siebardup';
-import { spacing } from '@material-ui/system';
+//import { spacing } from '@material-ui/system';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,8 +74,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewSingleConductor() {
+export default function ViewSingleConductor(props) {
   const classes = useStyles();
+  console.log(props.match.params.id)
 
   return (
     <Grid container className={classes.root}>
@@ -89,33 +90,6 @@ export default function ViewSingleConductor() {
             margin: 50,
             textAlign: 'center',
           }}>
-
-          <form>
-
-            <Typography style={{ textAlign: 'center', fontSize: '20px' }}>
-              <div>
-                <p><b>Name:</b>&nbsp; John Steewan</p>
-                <p><b>Email:</b>&nbsp; johnsteewan1984@gmail.com</p>
-                <p><b>Address:</b>&nbsp;No.10 ,Reid Avenue, Colombo 07</p>
-                <p><b>Contact:</b>&nbsp;0776789632</p>
-              </div>
-            </Typography>
-            
-          </form>
-
-          <div>
-              <Button className={clsx(classes.button)}
-                type="submit"
-                variant="contained">
-                {'Update'}
-              </Button>
-
-              <Button className={clsx(classes.button)}
-                type="submit"
-                variant="contained">
-                {'Delete'}
-              </Button>   
-            </div>
         </Paper>
       </Grid>
     </Grid>
