@@ -48,6 +48,8 @@ import test from './Component/SignUp/test';
 import DatePic from './Component/ReportGeneration/DatePeriod';
 import CreateReport from './Component/ReportGeneration/CreateReport';
 import Logout from './Component/Dashboard/Logout';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './Component/ProtectedRoutes';
 
 
@@ -70,9 +72,15 @@ class App extends Component {
     }
      
     render() {  
+        // <ToastContainer/>
         const {user}=this.state;
           return (  
               <Router>
+                  <ToastContainer
+                  position="top-left"
+                  autoClose={3000}
+                  style={{ width: "800px" }}
+                  />
                   <Switch>
                       {user &&  <Route exact path="/" component={Dashboard}/>}
                       {!user && <Route exact path="/" component={SignIn}/> }

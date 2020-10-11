@@ -16,6 +16,10 @@ import Button from '@material-ui/core/Button';
 import Buses from "./../images/Buses.jpg";
 import driver1 from "./../images/driver1.jpg";
 import report1 from "./../images/report1.jpg";
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles((theme) =>({
     appBar: {
@@ -63,16 +67,37 @@ const useStyles = makeStyles((theme) =>({
         padding: '20px 30px',
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         alignItems: 'center'
+    },
+    icon:{
+        alignItems:"center",
+        justifyContent: "center",
+        height: "50px",
+        width: "50px",
+        marginLeft: "1000px"
+    },
+    icon1:{
+        height: "50px",
+        width: "50px",
     }
 
 }));
 
 export default function ExampleDash() {
-//    componentDidMount= async() =>{
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
 
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
 
-//    }
+    const handleCloseProfile = () => {
+        setAnchorEl(null);
+        
+      };
+    const handleCloseLogout =()=>{
+        setAnchorEl(null);
+    }   
 
     const classes = useStyles();
     return(
@@ -84,7 +109,39 @@ export default function ExampleDash() {
                 </IconButton> */}
                 <Typography variant="h4" className={classes.title}>
                     eBus | Dashboard
-                </Typography>     
+                </Typography>
+                {/* <Button color="inherit" className={classes.navbar}>Logout</Button>      */}
+
+                <IconButton className={classes.icon}
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >  
+               <AccountCircle className={classes.icon1} />
+              </IconButton>
+
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleCloseProfile}
+                onClose={handleCloseLogout}
+              >
+                <MenuItem onClick={handleCloseProfile}>Profile</MenuItem>
+                <MenuItem onClick={handleCloseLogout}>Logout</MenuItem>
+              </Menu>
+
                 </Toolbar>
             </AppBar>
             <Box className={classes.buses}>
