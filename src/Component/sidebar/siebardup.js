@@ -160,7 +160,7 @@ function ResponsiveDrawer(props) {
               </List>
           </Collapse>
 
-          <Link href="/viewconductor" variant="body2" underline="none">
+          <Link href="/passengers" variant="body2" underline="none">
               <ListItem button>
                 <ListItemText primary="Passengers" />
               </ListItem>

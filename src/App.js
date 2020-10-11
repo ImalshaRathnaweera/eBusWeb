@@ -51,6 +51,10 @@ import Logout from './Component/Dashboard/Logout';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './Component/ProtectedRoutes';
+
+
+//Passenger Routes
+import Passenger from './Component/Passengers/Passengers'
   
 class App extends Component {
     state={};
@@ -119,6 +123,9 @@ class App extends Component {
                       {/* Report Generation */}
                       <Route exact path = "/reportgeneration"  component ={DatePic}/>
                       <Route exact path = "/createreport" component = {CreateReport}/>
+
+                      {/* Routes for Passenger */}
+                      <Route exact path = "/passengers"  component ={Passenger}/>
                   </Switch>
               </Router>
           
