@@ -18,7 +18,7 @@ import ViewUserBuses from './Component/Admin/ViewUserBuses';
 // Notify messages
 // import Success from './Component/Notification/Success';
 // import Error from './Component/Notification/Error';
-// import ConfirmDialog from './Component/Notification/ConfirmDialog';
+import ConfirmDialog from './Component/Notification/ConfirmDialog';
 
 // Importing Routes for Conductor details
 import AddConductor from './Component/Conductor/AddConductors/AddConductor';
@@ -38,7 +38,8 @@ import Table from './Component/Layouts/Table'
 import FormDialog from './Component/Layouts/DialogForm'
 import CheckingView from './Component/Layouts/CheckingView'
 import ExampleForm from './Component/Layouts/ExampleForm'
-// import ExampleView from './Component/Layouts/ExampleView'
+import DynamicInput from './Component/Layouts/DynamicInput'
+import BusRegisterFunc from './Component/Bus/BusRegisterFunc'
 
 //import ViewSingleConductor from './Component/sidebar/siebardup'
 import test from './Component/SignUp/test';
@@ -116,6 +117,8 @@ class App extends Component {
                       <Route exact path="/formDialog" component={FormDialog}/>
                       <Route exact path="/checkView" component={CheckingView}/>        
                       <Route exact path="/exampleform" component={ExampleForm}/>
+                      <Route exact path="/dynamicInput" component={DynamicInput}/>
+                      <Route exact path="/busRegistrationFunc" component={BusRegisterFunc}/>
 
                       <Route exact path="/viewsingleconductor" component={ViewSingleConductor}/>
                       <Route exact path="/test" component={test}/>
