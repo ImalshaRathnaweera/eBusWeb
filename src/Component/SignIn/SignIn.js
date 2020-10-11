@@ -56,7 +56,7 @@ class SignIn extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted")
+    //console.log("Submitted")
     const data = {
       email: this.state.email,
       password: this.state.password
@@ -67,9 +67,11 @@ class SignIn extends Component {
         // console.log(res);
         const jwt = res.headers["x-auth-token"]
         localStorage.setItem('token', jwt);
+        console.log(res);
         this.props.history.push('/dashboard');
       })
       .catch(err => {
+       alert("Invalid user name or password");
         console.log(err.message);
         console.log(err.status);
       })

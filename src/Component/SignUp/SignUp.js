@@ -24,7 +24,7 @@ class SignUp extends React.Component {
       email: "",
       address: "",
       nic: "",
-      contact: "",
+      phoneNumber: "",
       password: "",
       confirmpassword: "",
     }
@@ -63,7 +63,7 @@ class SignUp extends React.Component {
   }
   contacthandler = (event) => {
     this.setState({
-      contact: event.target.value
+      phoneNumber: event.target.value
     })
     // console.log(event.target.value)
   }
@@ -88,7 +88,7 @@ class SignUp extends React.Component {
       email : this.state.email,
       address: this.state.address,
       nic: this.state.nic,
-      contact: this.state.contact,
+      phoneNumber: this.state.phoneNumber,
       password : this.state.password
     }
     // // alert(`${this.state.email} ${this.state.password} Success`)
@@ -206,11 +206,11 @@ class SignUp extends React.Component {
                 margin="normal"
                 required
                 fullWidth
-                id="contact"
+                id="phoneNumber"
                 label="Contact Number"
-                name="contact"
-                autoComplete="contact"
-                value={this.state.contact}
+                name="phoneNumber"
+                autoComplete="phoneNumber"
+                value={this.state.phoneNumber}
                 onChange={this.contacthandler}
               />
 
