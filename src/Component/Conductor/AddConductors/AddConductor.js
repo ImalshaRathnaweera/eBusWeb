@@ -20,6 +20,7 @@ class AddConductor extends React.Component{
         email :"",
         address: "",
         password:"",    
+        contact:"",
   }
   this.handleSubmit = this.handleSubmit.bind(this)
 }
