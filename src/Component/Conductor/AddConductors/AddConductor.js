@@ -59,6 +59,14 @@ class AddConductor extends React.Component{
       })
       console.log(event.target.value)
     }
+    passwordhandler =(event) =>{
+      this.setState({
+        password:event.target.value
+      })
+      console.log(event.target.value)
+    }
+
+
 
     handleSubmit =(event) =>{
       alert(`${this.state.email} ${this.state.password} Success`)
@@ -69,6 +77,7 @@ class AddConductor extends React.Component{
         conductorNumber: this.state.conductornumber,
         address: this.state.address,
         contact: this.state.contact,
+        password: this.state.password
     }
 
       axios.post('http://localhost:3000/api/conductor/register', newConductor)
@@ -194,6 +203,19 @@ class AddConductor extends React.Component{
               autoComplete="contact"
               value={this.state.contact}
               onChange ={this.contacthandler}
+            />
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              label="Password (For the first time owner should generate)"
+              name="password"
+              autoComplete="password"
+              value={this.state.password}
+              onChange ={this.passwordhandler}
             />
 
                 <Grid item>
