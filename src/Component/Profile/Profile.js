@@ -22,14 +22,23 @@ class Profile extends Component {
             address: "",
             phoneNumber: "",
             user:{},
+            currentpassword:"",
+            newpassword:"",
+            confirmpassword:"",
+
 
 
         }
         this.onSubmit = this.onSubmit.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.namehandler = this.namehandler.bind(this);
         this.emailhandler = this.emailhandler.bind(this);
         this.addresshandler = this.addresshandler.bind(this);
         this.contacthandler = this.contacthandler.bind(this);
+        this.handleOldPasswordFieldChange = this.handleOldPasswordFieldChange.bind(this);
+        this.handleNewPasswordFieldChange = this.handleNewPasswordFieldChange.bind(this);
+        this.handleconfirmNewPasswordFieldChange=this.handleconfirmNewPasswordFieldChange.bind(this);
+
     }
     toggleHandler = (e) => {
         e.preventDefault();
@@ -113,11 +122,56 @@ class Profile extends Component {
         }
         reader.readAsDataURL(e.target.files[0])
     };
+    
     handlePasswordChange = (e) => {
         e.preventDefault();
+        console.log("entered")
+        if(this.state.user){
+           // if(this.state.password==this.state.user.password){
+                if(this.state.newpassword==this.state.confirmpassword){
+                    const data = {
+                        newpassword: this.state.newpassword,
+                        confirmpassword: this.state.confirmpassword
+            
+                    };
+                   axios.post('http://localhost:3000/api/user/changepassword',data)
+                   .then(res =>{
+                        console.log("response recieved");
+                        const jwt = res.headers["x-auth-token"]
+                        localStorage.setItem('token', jwt);
+                   })
+                }else{
+                    console.log("new password doesn't match");
+                }
+              
+               
+            // }else{
+            //    console.log("wrong current password"+this.state.user.password);
+            // }
+        }else{
+            console.log("this is user"+this.state.user.password);
+        }
+      
+       
         
 
     };
+
+    handleOldPasswordFieldChange =(e)=>{
+        this.setState({
+            password: e.target.value
+        });
+    }
+    handleNewPasswordFieldChange =(e)=>{
+        this.setState({
+            newpassword:e.target.value
+        })
+    }
+    handleconfirmNewPasswordFieldChange= (e) => {
+        this.setState({
+            confirmpassword:e.target.value
+        })
+    }
     render() {
         const { profileIma } = this.state;
         let content = null;
@@ -266,6 +320,7 @@ class Profile extends Component {
                                     type="password"
                                     label="Current Password"
                                     name="password"
+                                    onChange={this.handleOldPasswordFieldChange}
                                 />
                                 <TextField
                                     variant="outlined"
@@ -276,6 +331,7 @@ class Profile extends Component {
                                     type="password"
                                     label="New Password"
                                     name="newpassword"
+                                    onChange={this.handleNewPasswordFieldChange}
                                 />
                                 <TextField
                                     variant="outlined"
@@ -286,6 +342,7 @@ class Profile extends Component {
                                     type="password"
                                     label="Confirm Password"
                                     name="confirmpassword"
+                                    onChange={this.handleconfirmNewPasswordFieldChange}
                                 />
 
                                 <Button className="btn"

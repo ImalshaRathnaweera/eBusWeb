@@ -12,6 +12,7 @@ import Link from '@material-ui/core/Link';
 // import G3 from "../images/G3.png";
 import axios from 'axios';
 import authService from '../../Service/authService';
+import {toast} from 'react-toastify';
 
 
 class SignUp extends React.Component {
@@ -98,6 +99,7 @@ class SignUp extends React.Component {
       // localStorage.setItem('token', res.data.token);
        console.log(res)
       this.props.history.push('/dashboard');
+      toast.success("User Registration successfully");
     })
     .catch(err => {
       console.log(err.message);
