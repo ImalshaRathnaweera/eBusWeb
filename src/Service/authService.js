@@ -22,7 +22,6 @@ export const logout=()=>{
 }
 
 export const getCurrentUser=()=>{
-    console.log('moda imalsha!')
     const jwt=localStorage.getItem(tokenKey);
         const user=jwtDecode(jwt);
         console.log(user);

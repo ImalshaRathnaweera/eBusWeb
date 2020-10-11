@@ -12,6 +12,7 @@ import Link from '@material-ui/core/Link';
 import G3 from "../images/G3.png";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import {toast} from 'react-toastify';
 
 class SignIn extends Component {
   constructor(props) {
@@ -69,9 +70,10 @@ class SignIn extends Component {
         localStorage.setItem('token', jwt);
         console.log(res);
         this.props.history.push('/dashboard');
+        toast.success("User Login successful");
       })
       .catch(err => {
-       alert("Invalid user name or password");
+       toast.error("Invalid user name or password");
         console.log(err.message);
         console.log(err.status);
       })
