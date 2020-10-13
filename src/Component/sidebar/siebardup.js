@@ -167,7 +167,13 @@ function ResponsiveDrawer(props) {
           </Link >
           <Link href="/profile" variant="body2" underline="none">
               <ListItem button>
-                <ListItemText primary="Profle" />
+                <ListItemText primary="Profile" />
+              </ListItem>
+          </Link >
+          
+          <Link href="/viewUsers" variant="body2" underline="none">
+              <ListItem button>
+                <ListItemText primary="Users Details" />
               </ListItem>
           </Link >
 

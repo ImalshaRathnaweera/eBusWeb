@@ -98,7 +98,7 @@ class App extends Component {
 
                           {/* Routes for Admin */}
                       <Route exact path="/viewUsers" component={ViewUsers}/>
-                      <Route exact path="/viewUserBuses" component={ViewUserBuses}/>
+                      <Route exact path="/viewUserBuses/:id" component={ViewUserBuses}/>
 
                           {/* Routes for Conductor */}
                       <Route exact path="/addconductor" component={AddConductor}/>

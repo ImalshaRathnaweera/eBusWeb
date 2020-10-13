@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
+import ResponsiveDrawer from './../sidebar/siebardup'
 import { Grid, } from '@material-ui/core'
-//import Input from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Input from './../Bus_Form/Input';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
@@ -29,16 +30,23 @@ const initialFValues = {
 export default function BusRegisterFunc() {
 
     const validate = (fieldValues = values) => {
-      let temp = {}
-      temp.busNo = values.busNo ? "" : "This field is required."
-      temp.routeNo = values.routeNo ? "" : "This field is required."
-      temp.startPoint = values.startPoint ? "" : "This field is required."
-      temp.endPoint = values.endPoint ? "" : "This field is required."
-      temp.busCapacity = values.busCapacity.length < 2 ? "" : "This field is required."
+      let temp = { ...errors }
+      if ('busNo' in fieldValues)
+         temp.busNo = fieldValues.busNo ? "" : "This field is required."
+      if ('routeNo' in fieldValues)
+         temp.routeNo = fieldValues.routeNo ? "" : "This field is required."
+      if ('startPoint' in fieldValues)
+         temp.startPoint = fieldValues.startPoint ? "" : "This field is required."
+      if ('endPoint' in fieldValues)
+         temp.endPoint = fieldValues.endPoint ? "" : "This field is required."
+      if ('busCapacity' in fieldValues)
+         temp.busCapacity = fieldValues.busCapacity.length < 2 ? "" : "This field is required."
       setErrors({
         ...temp
       })
-      return Object.values(temp).every(x => x=="")
+
+      if (fieldValues == values)
+          return Object.values(temp).every(x => x=="")
     }
 
     const handleSubmit = e => {
@@ -57,7 +65,15 @@ export default function BusRegisterFunc() {
     } = useForm(initialFValues, true,validate);
     
     return (
-            <Form onSubmit={handleSubmit}>
+        <Grid container style={{marginTop: 100, 
+                                    display:"flex",
+                                    justifyContent: 'center',
+                                    alignItems: 'center'}}>
+          <ResponsiveDrawer/>
+          <Form onSubmit={handleSubmit}>
+            <Typography component="h2" variant="">
+                Bus Registration
+            </Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
                     <Input
@@ -179,7 +195,8 @@ export default function BusRegisterFunc() {
                 </div>
               
             </Grid>
-            </Form>
+          </Form>
+        </Grid>
     )
 }
 
