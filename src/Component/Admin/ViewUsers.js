@@ -115,7 +115,7 @@ export default function ViewUsers() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'http://localhost:4000/api/bus',
+        'http://localhost:3000/api/admin/owners',
       );
 
       setData(result.data);
@@ -131,7 +131,7 @@ export default function ViewUsers() {
             isOpen: false
       })
       console.log(_id)
-      axios.post('http://localhost:4000/api/bus/delete', _id)  
+      axios.post('http://localhost:3000/api/admin/delete', _id)  
             .then(res => console.log(res.data));
       console.log("item deleted");
       setNotify({
@@ -139,7 +139,7 @@ export default function ViewUsers() {
             message: 'Deleted Successfully',
             type: 'error'
         })
-      history.push("/viewBuses");
+      history.push("/viewUsers");
   }
 
 
@@ -175,13 +175,13 @@ export default function ViewUsers() {
               {data.map(item => (
                 <StyledTableRow key={item._id}>
                   <StyledTableCell align="center" >{counter++}</StyledTableCell>
-                  <StyledTableCell align="center" >{item.busNo}</StyledTableCell>
-                  <StyledTableCell align="center">{item.busRoute}</StyledTableCell>
-                  <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
-                  <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
-                  <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
+                  <StyledTableCell align="center" >{item.name}</StyledTableCell>
+                  <StyledTableCell align="center">{item.email}</StyledTableCell>
+                  <StyledTableCell align="center">{item.address}</StyledTableCell>
+                  <StyledTableCell align="center">{item.nic}</StyledTableCell>
+                  <StyledTableCell align="center">{item.contactNo}</StyledTableCell>
                   <StyledTableCell align="center">
-                    <Link to={`/busProfile/${item._id}`}>
+                    <Link to={`/viewUserBuses/${item._id}`}>
                       {/* <button>View</button> */}
                       <IconButton aria-label="visibility" >
                         <VisibilityIcon />

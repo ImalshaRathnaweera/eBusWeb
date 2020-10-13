@@ -109,7 +109,7 @@ export default function ViewBuses() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'http://localhost:3000/api/bus',
+        'http://localhost:3000/api/bus/viewbuses',
       );
 
       setData(result.data);
@@ -139,8 +139,11 @@ export default function ViewBuses() {
               <TableRow>
                 <StyledTableCell align="center">Id</StyledTableCell>
                 <StyledTableCell align="center">Bus No</StyledTableCell>
-                <StyledTableCell align="center">Bus Route</StyledTableCell>
+                <StyledTableCell align="center">Route No</StyledTableCell>
+                <StyledTableCell align="center">Start Point</StyledTableCell>
+                <StyledTableCell align="center">End Point</StyledTableCell>
                 <StyledTableCell align="center">BusCapacity</StyledTableCell>
+                {/* <StyledTableCell align="center">Enable Reservation</StyledTableCell> */}
                 <StyledTableCell align="center">Action</StyledTableCell>
 
               </TableRow>
@@ -151,7 +154,9 @@ export default function ViewBuses() {
                 <StyledTableRow key={item._id}>
                   <StyledTableCell align="center" >{counter++}</StyledTableCell>
                   <StyledTableCell align="center" >{item.busNo}</StyledTableCell>
-                  <StyledTableCell align="center">{item.busRoute}</StyledTableCell>
+                  <StyledTableCell align="center">{item.routeNo}</StyledTableCell>
+                  <StyledTableCell align="center">{item.startPoint}</StyledTableCell>
+                  <StyledTableCell align="center">{item.endPoint}</StyledTableCell>
                   <StyledTableCell align="center">{item.busCapacity}</StyledTableCell>
                   <StyledTableCell align="center">
                     <Link to={`/busProfile/${item._id}`}>

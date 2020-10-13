@@ -13,12 +13,12 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ResponsiveDrawer from './../sidebar/siebardup';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {DialogActions, DialogContent,DialogContentText, DialogTitle} from '@material-ui/core';
+
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
+import ConfirmDialog from './../Notification/ConfirmDialog';
+import Notification from './../Notification/Notification';
 
 const useStyles = makeStyles((theme) =>({
     appBar: {
@@ -74,16 +74,16 @@ const useStyles = makeStyles((theme) =>({
         width: "100%",
         padding: '20px 80px',
         fontSize: '20px',
-        marginRight: theme.spacing(8)
+        marginRight: theme.spacing(15)
     },
-    reportButton: {
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        color: 'black',
-        height: 48,
-        width: "100%",
-        padding: '20px 30px',
-        fontSize: '20px'
-    }
+    // reportButton: {
+    //     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    //     color: 'black',
+    //     height: 48,
+    //     width: "100%",
+    //     padding: '20px 30px',
+    //     fontSize: '20px'
+    // }
 
 }));
 
@@ -91,7 +91,6 @@ export default function BusProfile(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
-    const [confirmOpen, setConfirmOpen] = useState(false);
     const [notify, setNotify] = useState({ isOpen: true, message: '', type: '' })  //changed isOpen to true
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title:'', subtitle:''})
     const [data, setData] = useState([]);
@@ -141,35 +140,56 @@ useEffect(() => {
 
     // update state
     const [busNo, setBusNo] = useState("");
-    const [busRoute, setBusRoute] = useState("");
-    const [busCapacity, setBusCapacity] = useState("");
+    const [routeNo, setRouteNo] = useState("");
+    const [startPoint, setStartPoint] = useState("");
+    const [endPoint, setEndPoint] = useState("");
+    const [busCapacity, setBusCapacity] = useState("");  
+    //const [isReserveEnable, setisReserveEnable] = useState(false);
 
     const handleUpdate = () => {
 
         const newBus = {
             id: data._id,
             busNo: busNo ? busNo : data.busNo,
-            busRoute: busRoute ? busRoute : data.busRoute,
-            busCapacity: busCapacity ? busCapacity : data.busCapacity
+            routeNo: routeNo ? routeNo : data.routeNo,
+            startPoint: startPoint ? startPoint : data.startPoint,
+            endPoint: endPoint ? endPoint : data.endPoint,
+            busCapacity: busCapacity ? busCapacity : data.busCapacity,
+            //isReserveEnable: isReserveEnable ? isReserveEnable : data.isReserveEnable,
+
         }
         console.log(newBus)
 
         axios.post('http://localhost:3000/api/bus/update', newBus)  
              .then(res => console.log(res.data));
+
+        // Notify message
+        setNotify({
+            isOpen: true,
+            message: 'Updated Successfully',
+            type: 'success'
+        })
     }
 
     let history = useHistory();
     const handleDelete = (_id) => {
-        // setConfirmDialog({
-        //     ...confirmDialog,
-        //     isOpen: false
-        // })
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        })
         console.log(_id)
-        axios.post('http://localhost:4000/api/bus/delete', _id)  
+        axios.post('http://localhost:3000/api/bus/delete', _id)  
              .then(res => console.log(res.data));
         console.log("item deleted");
-        history.push("/viewBuses");
+        
+        setNotify({
+            isOpen: true,
+            message: 'Deleted Successfully',
+            type: 'error'
+        }) 
+        history.push("/viewBuses");  
     }
+
 
 
 
@@ -177,7 +197,7 @@ useEffect(() => {
 
 
     return(
-        <div>
+        <>
             <ResponsiveDrawer/>
             <Box className={classes.buses}>
                 {/* <Box>
@@ -187,8 +207,10 @@ useEffect(() => {
                 </Box> */}
             </Box>
             <Container maxWidth="lg" className={classes.exampleContainer}>
-                <Grid container spacing={3}>
-                    <Grid item xs={8}>
+                <Grid container style={{ display:"flex",
+                                    justifyContent: 'center',
+                                    alignItems: 'center'}}>
+                    <Grid item xs={9}>
                         <Card className={classes.card}>
                             <CardActionArea>
                                <CardContent>
@@ -213,8 +235,36 @@ useEffect(() => {
                                        <Grid item xs>
                                         <TextField fullWidth
                                             id="outlined-read-only-input"
-                                            label="Bus Route"
-                                            value={data.busRoute}
+                                            label="Route Number"
+                                            value={data.routeNo}
+                                            InputProps={{
+                                                readOnly: true,
+                                            }}
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            variant="outlined"
+                                            />
+                                            </Grid>
+                                        <Grid item xs>
+                                        <TextField fullWidth
+                                            id="outlined-read-only-input"
+                                            label="Start Point"
+                                            value={data.startPoint}
+                                            InputProps={{
+                                                readOnly: true,
+                                            }}
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
+                                            variant="outlined"
+                                            />
+                                            </Grid>
+                                        <Grid item xs>
+                                        <TextField fullWidth
+                                            id="outlined-read-only-input"
+                                            label="End Point"
+                                            value={data.endPoint}
                                             InputProps={{
                                                 readOnly: true,
                                             }}
@@ -276,11 +326,33 @@ useEffect(() => {
                                                     margin="normal"
                                                     required
                                                     fullWidth
-                                                    id="busRoute"
+                                                    id="routeNo"
                                                     label="Bus Route"
-                                                    name="busRoute"
-                                                    defaultValue={data.busRoute}   
-                                                    onChange={e => setBusRoute(e.target.value)}
+                                                    name="routeNo"
+                                                    defaultValue={data.routeNo}   
+                                                    onChange={e => setRouteNo(e.target.value)}
+                                                />
+                                                <TextField
+                                                    variant="outlined"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="startPoint"
+                                                    label="Bus Capacity"
+                                                    name="startPoint"
+                                                    defaultValue={data.startPoint}
+                                                    onChange={e => setStartPoint(e.target.value)}
+                                                />
+                                                <TextField
+                                                    variant="outlined"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="endPoint"
+                                                    label="Bus Capacity"
+                                                    name="endPoint"
+                                                    defaultValue={data.endPoint}
+                                                    onChange={e => setEndPoint(e.target.value)}
                                                 />
                                                 <TextField
                                                     variant="outlined"
@@ -301,7 +373,7 @@ useEffect(() => {
                                         <Button 
                                             type="submit"
                                             color="primary"
-                                            onClick={handleUpdate}
+                                            
                                         >
                                             Update
                                         </Button>
@@ -312,7 +384,14 @@ useEffect(() => {
                                 <Button className={clsx(classes.button)} 
                     
                                     variant="contained"
-                                    onClick = {()=>handleDelete(data._id)}
+                                    onClick={()=> {
+                                        setConfirmDialog({
+                                        isOpen: true,
+                                        title: 'Are you sure to delete this record?',
+                                        subTitle: "You can't undo this operation",
+                                        onConfirm: () => { handleDelete(data._id) }
+                                        })
+                                    }}
                                     >
                                     {'Delete Details'}
                                     
@@ -321,7 +400,7 @@ useEffect(() => {
                         </Card>
                     </Grid>
 
-                    <Grid item xs={4}>
+                    {/* <Grid item xs={4}>
                         <Card className={classes.card}>
                             <CardActionArea>
                                 <CardContent>
@@ -350,15 +429,19 @@ useEffect(() => {
                                 </Button>
                             </CardActions>
                         </Card>
-                    </Grid>
-
-                    
-
+                    </Grid> */}
 
                 </Grid>
             </Container>
-
-        </div>
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+            <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+            /> 
+        </>
 
     )
 }

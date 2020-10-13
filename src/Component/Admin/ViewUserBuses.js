@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import clsx from 'clsx';
+import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { Grid, Paper, Typography, Avatar} from '@material-ui/core';
@@ -92,7 +92,7 @@ export default function BusProfile(props) {
     useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'http://localhost:4000/api/bus',
+        'http://localhost:3000/api/bus/viewbuses',
       );
 
       setData(result.data);
@@ -185,10 +185,11 @@ export default function BusProfile(props) {
                             <form  >
                                 <Typography style={{ textAlign: 'center', fontSize: '20px' }}>
                                 <div>
-                                    <p><b>Name:</b>&nbsp; John Steewan</p>
-                                    <p><b>Email:</b>&nbsp; johnsteewan1984@gmail.com</p>
-                                    <p><b>Address:</b>&nbsp;No.10 ,Reid Avenue, Colombo 07</p>
-                                    <p><b>Contact:</b>&nbsp;0776789632</p>
+                                    <p><b>Name:</b>&nbsp;Nilanka De Silva</p>
+                                    <p><b>Email:</b>&nbsp; nilanka@gmail.com</p>
+                                    <p><b>Address:</b>&nbsp;12/34, Galle</p>
+                                    <p><b>NIC:</b>&nbsp;985412451V</p>
+                                    <p><b>Contact:</b>&nbsp;0914512456</p>
                                 </div>
                                 </Typography>
                                 <Grid style={{
