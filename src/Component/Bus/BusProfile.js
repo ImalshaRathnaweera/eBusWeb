@@ -173,16 +173,21 @@ useEffect(() => {
 
     let history = useHistory();
     const handleDelete = (_id) => {
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        })
         console.log(_id)
         axios.post('http://localhost:3000/api/bus/delete', _id)  
              .then(res => console.log(res.data));
         console.log("item deleted");
-        history.push("/viewBuses");
+        
         setNotify({
             isOpen: true,
             message: 'Deleted Successfully',
             type: 'error'
-        })   
+        }) 
+        history.push("/viewBuses");  
     }
 
 

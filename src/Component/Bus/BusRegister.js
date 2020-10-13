@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ResponsiveDrawer from './../sidebar/siebardup'
 import { Link } from "react-router-dom";
+import {toast} from 'react-toastify';
 //import TimePicker from 'react-time-picker';
 
 // sending requests
@@ -134,6 +135,8 @@ export default class BusRegister extends React.Component {
 
         axios.post('http://localhost:3000/api/bus/register', newBus)
              .then(res => console.log(res.data));
+        // this.props.history.push('/viewBuses');
+        // toast.success("User Registration successfully");
 
         this.setState({
             busNo: '',
@@ -149,14 +152,8 @@ export default class BusRegister extends React.Component {
             noOfReservation: 0
 
         })
-
-        
-    // Notify message
-        // setNotify({
-        //         isOpen: true,
-        //         message: 'Submitted Successfully',
-        //         type: 'success'
-        //     })
+        this.props.history.push('/viewBuses');
+        toast.success("User Registration successfully");
     }
 
     handleInputChange(event) {

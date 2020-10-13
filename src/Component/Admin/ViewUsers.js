@@ -177,9 +177,9 @@ export default function ViewUsers() {
                   <StyledTableCell align="center" >{counter++}</StyledTableCell>
                   <StyledTableCell align="center" >{item.name}</StyledTableCell>
                   <StyledTableCell align="center">{item.email}</StyledTableCell>
-                  <StyledTableCell align="center">{item.ownerMeta.address}</StyledTableCell>
-                  <StyledTableCell align="center">{item.ownerMeta.nic}</StyledTableCell>
-                  <StyledTableCell align="center">{item.ownerMeta.contactNo}</StyledTableCell>
+                  <StyledTableCell align="center">{item.address}</StyledTableCell>
+                  <StyledTableCell align="center">{item.nic}</StyledTableCell>
+                  <StyledTableCell align="center">{item.contactNo}</StyledTableCell>
                   <StyledTableCell align="center">
                     <Link to={`/viewUserBuses/${item._id}`}>
                       {/* <button>View</button> */}
